@@ -57,7 +57,7 @@ public class testmode extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor LFDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotor RFDrive = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -70,12 +70,12 @@ public class testmode extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         LFDrive = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        RFDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         LFDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        RFDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -122,7 +122,7 @@ public class testmode extends OpMode
 
         // Send calculated power to wheels
         LFDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
+        RFDrive.setPower(rightPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
