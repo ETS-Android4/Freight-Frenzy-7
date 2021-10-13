@@ -115,10 +115,10 @@ public class MecanumDriveLinear extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            leftFrontDrive.setPower(leftPower);
-            rightFrontDrive.setPower(rightPower);
-            leftBackDrive.setPower(leftPower);
-            rightBackDrive.setPower(rightPower);
+            leftFrontDrive.setPower(leftFrontPower);
+            rightFrontDrive.setPower(rightFrontPower);
+            leftBackDrive.setPower(leftFrontPower);
+            rightBackDrive.setPower(rightFrontPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
