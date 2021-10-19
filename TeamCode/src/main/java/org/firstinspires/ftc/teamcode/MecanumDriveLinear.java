@@ -36,10 +36,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-
+//Fix Math, fix motor names, Change TeleOp 'name and group'
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
- * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
+ * the autonomous or the TeleOp period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
@@ -50,7 +50,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Basic: Linear OpMode", group="Linear OpMode")
 @Disabled
 public class MecanumDriveLinear extends LinearOpMode {
 
@@ -100,9 +100,12 @@ public class MecanumDriveLinear extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
+            // Does x value need to be negative?
+
             double drive = -gamepad1.left_stick_y;
             double strafe = -gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
+            // Math Functions go here. duplicate math is used.
             leftFrontPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightFrontPower   = Range.clip(drive - turn, -1.0, 1.0) ;
             leftBackPower    = Range.clip(drive + turn, -1.0, 1.0) ;
