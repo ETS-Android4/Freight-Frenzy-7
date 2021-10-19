@@ -1,0 +1,49 @@
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+@Disabled
+
+public class PushButtonPractice extends OpMode {
+
+    private DcMotor intake = null;
+    private Servo duckServo = null;
+    double servoPosition = 0.0;
+
+    @Override
+    public void init (){
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        duckServo = hardwareMap.get(Servo.class, "duckServo");
+        duckServo.setPosition(servoPosition);
+    }
+    @Override
+    public void init_loop(){
+
+        telemetry.addData("Practice", "Buttons");
+        telemetry.update();
+
+
+        //intake.setPower(0.5);
+        //intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
+      if   (gamepad1.b) {
+          servoPosition = 0.5;
+          duckServo.setPosition(servoPosition);
+        }
+      if (gamepad1.a) {
+          servoPosition = -0.5;
+          duckServo.setPosition(servoPosition);
+
+      }
+
+    }
+}
