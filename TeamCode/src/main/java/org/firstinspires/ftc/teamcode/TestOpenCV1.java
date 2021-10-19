@@ -41,8 +41,8 @@ public class TestOpenCV1 extends OpMode {
 
             }
         })
-            @Override
-                    public void onopened(){
+        @Override
+        public void onopened(){
                 Webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
             }
         }
@@ -59,7 +59,7 @@ public class TestOpenCV1 extends OpMode {
 }
 
 class ShippingElementDetectingPipeline extends OpenCvPipeline {
-    Mat outPut =new Mat();
+    Mat outPut = new Mat();
     int Rect1X = 0;
     int Rect2X = 0;
     int Rect1Y = 0;
@@ -70,7 +70,7 @@ class ShippingElementDetectingPipeline extends OpenCvPipeline {
     int Rect2height = 220;
     Mat CenterCrop = new Mat();
     Mat RightCrop = new Mat();
-
+}
     @Override
 
     public Mat processFrame(Mat input){
@@ -96,7 +96,3 @@ class ShippingElementDetectingPipeline extends OpenCvPipeline {
 
         if (FinalRightAverageR<FinalCenterAverageR ){
     }
-
-
-
-}
