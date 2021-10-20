@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp
-@Disabled
+@TeleOp (name= "PushButton", group= "Practice")
+
 
 public class PushButtonPractice extends OpMode {
 
@@ -40,10 +40,27 @@ public class PushButtonPractice extends OpMode {
           duckServo.setPosition(servoPosition);
         }
       if (gamepad1.a) {
-          servoPosition = -0.5;
+          servoPosition = 0.0;
           duckServo.setPosition(servoPosition);
 
       }
 
     }
+    @Override
+    public void start() {
+
+        while (gamepad1.x)
+            intake.setDirection(DcMotorSimple.Direction.FORWARD);
+    }
+
+    @Override
+    public void loop() {
+    }
+
+    @Override
+    public void stop() {
+    }
+
+
+
 }

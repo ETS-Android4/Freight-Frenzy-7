@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-//Fix Math, fix motor names, Change TeleOp 'name and group'
+//Fix Math, fix motor names, '
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the TeleOp period of an FTC match. The names of OpModes appear on the menu
@@ -50,16 +50,16 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear OpMode")
+@TeleOp(name="MecanumDrive", group="OpMode")
 @Disabled
 public class MecanumDriveLinear extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFrontDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightBackDrive = null;
+    private DcMotor LFDrive = null;
+    private DcMotor RFDrive = null;
+    private DcMotor LBDrive = null;
+    private DcMotor RBDrive = null;
 
     @Override
     public void runOpMode() {
@@ -69,17 +69,17 @@ public class MecanumDriveLinear extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        LFDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
+        RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
+        LBDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
+        RBDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        LFDrive.setDirection(DcMotor.Direction.FORWARD);
+        RFDrive.setDirection(DcMotor.Direction.REVERSE);
+        LBDrive.setDirection(DcMotor.Direction.FORWARD);
+        RBDrive.setDirection(DcMotor.Direction.REVERSE);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -103,8 +103,10 @@ public class MecanumDriveLinear extends LinearOpMode {
             // Does x value need to be negative?
 
             double drive = -gamepad1.left_stick_y;
-            double strafe = -gamepad1.left_stick_x;
+            double strafe = gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
+            double d% = Math.abs(drive) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+
             // Math Functions go here. duplicate math is used.
             leftFrontPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightFrontPower   = Range.clip(drive - turn, -1.0, 1.0) ;
@@ -118,10 +120,10 @@ public class MecanumDriveLinear extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            leftFrontDrive.setPower(leftFrontPower);
-            rightFrontDrive.setPower(rightFrontPower);
-            leftBackDrive.setPower(leftFrontPower);
-            rightBackDrive.setPower(rightFrontPower);
+            LFDrive.setPower(leftFrontPower);
+            RFDrive.setPower(rightFrontPower);
+            LBDrive.setPower(leftFrontPower);
+            RBDrive.setPower(rightFrontPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
