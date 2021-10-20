@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="MecanumDrive", group="OpMode")
-@Disabled
+//@Disabled
 public class MecanumDriveLinear extends LinearOpMode {
 
     // Declare OpMode members.
@@ -105,13 +105,16 @@ public class MecanumDriveLinear extends LinearOpMode {
             double drive = -gamepad1.left_stick_y;
             double strafe = gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
-            double d% = Math.abs(drive) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+            double dPercent = Math.abs(drive) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+            double sPercent = Math.abs(strafe) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+            double tPercent = Math.abs(turn) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+
 
             // Math Functions go here. duplicate math is used.
-            leftFrontPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightFrontPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-            leftBackPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightBackPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            leftFrontPower    = ((drive * dPercent) + (strafe * sPercent) + (turn * tPercent));
+            rightFrontPower   = ((drive * dPercent) + (-strafe * sPercent) + (-turn * tPercent));
+            leftBackPower    = ((drive * dPercent) + (-strafe * sPercent) + (turn * tPercent));
+            rightBackPower   = ((drive * dPercent) + (strafe * sPercent) + (-turn * tPercent));
 
 
             // Tank Mode uses one stick to control each wheel.
@@ -122,8 +125,8 @@ public class MecanumDriveLinear extends LinearOpMode {
             // Send calculated power to wheels
             LFDrive.setPower(leftFrontPower);
             RFDrive.setPower(rightFrontPower);
-            LBDrive.setPower(leftFrontPower);
-            RBDrive.setPower(rightFrontPower);
+            LBDrive.setPower(leftBackPower);
+            RBDrive.setPower(rightBackPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
