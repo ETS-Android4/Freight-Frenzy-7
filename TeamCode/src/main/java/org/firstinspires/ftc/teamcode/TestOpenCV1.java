@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class TestOpenCV1 extends OpMode {
     OpenCvCamera Webcam = null;
 
-    static double ringcount = 0;   // this is for the old season but I still put it in
+    static int barcodelocation = 0;   // this is for the old season but I still put it in
 
     @Override
     public void init() {
@@ -33,6 +33,7 @@ public class TestOpenCV1 extends OpMode {
         {
             @Override
             public void onOpened() {
+                Webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
             }
 
@@ -40,17 +41,9 @@ public class TestOpenCV1 extends OpMode {
             public void onError(int errorCode) {
 
             }
-        })
-        @Override
-        public void onopened(){
-                Webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+        });
             }
-        }
 
-        );
-
-
-    }
 
     @Override
     public void loop() {
@@ -70,23 +63,23 @@ class ShippingElementDetectingPipeline extends OpenCvPipeline {
     int Rect2height = 220;
     Mat CenterCrop = new Mat();
     Mat RightCrop = new Mat();
-}
+
     @Override
 
-    public Mat processFrame(Mat input){
+    public Mat processFrame(Mat input) {
 
         input.copyTo(outPut);
         Rect rect = new Rect(Rect1X, Rect1Y, Rectwidth, Rectheight);
-        Rect rect2 = new Rect(Rect2X,Rect2Y, Rect2width, Rect2height);
+        Rect rect2 = new Rect(Rect2X, Rect2Y, Rect2width, Rect2height);
 
-        Scalar rectanglecolor = new Scalar(0,0,0);
+        Scalar rectanglecolor = new Scalar(0, 0, 0);
 
-        Imgproc.rectangle(outPut,rect,rectanglecolor,2);
+        Imgproc.rectangle(outPut, rect, rectanglecolor, 2);
         CenterCrop = input.submat(rect);
         RightCrop = input.submat(rect2);
 
-        Core.extractChannel(CenterCrop,CenterCrop,2);
-        Core.extractChannel(RightCrop,RightCrop,2);
+        Core.extractChannel(CenterCrop, CenterCrop, 2);
+        Core.extractChannel(RightCrop, RightCrop, 2);
 
         Scalar CenterAverageR = Core.mean(CenterCrop);
         double FinalCenterAverageR = CenterAverageR.val[0];
@@ -94,5 +87,13 @@ class ShippingElementDetectingPipeline extends OpenCvPipeline {
         Scalar RightAverageR = Core.mean(RightCrop);
         double FinalRightAverageR = RightAverageR.val[0];
 
-        if (FinalRightAverageR<FinalCenterAverageR ){
+        if (FinalRightAverageR < FinalCenterAverageR) {
+
+        }
+
+        return outPut;
     }
+
+}
+
+

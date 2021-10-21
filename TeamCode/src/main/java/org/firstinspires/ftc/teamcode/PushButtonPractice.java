@@ -15,15 +15,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class PushButtonPractice extends OpMode {
 
-    private DcMotor intake = null;
-    private Servo duckServo = null;
+    //private DcMotor intake = null;
+    private Servo DuckArm = null;
     double servoPosition = 0.0;
 
     @Override
     public void init (){
-        intake = hardwareMap.get(DcMotor.class, "intake");
-        duckServo = hardwareMap.get(Servo.class, "duckServo");
-        duckServo.setPosition(servoPosition);
+        //intake = hardwareMap.get(DcMotor.class, "intake");
+        DuckArm  = hardwareMap.get(Servo.class, "DuckArm");
+        DuckArm.setPosition(servoPosition);
     }
     @Override
     public void init_loop(){
@@ -37,11 +37,11 @@ public class PushButtonPractice extends OpMode {
 
       if   (gamepad1.b) {
           servoPosition = 0.5;
-          duckServo.setPosition(servoPosition);
+          DuckArm.setPosition(servoPosition);
         }
       if (gamepad1.a) {
           servoPosition = 0.0;
-          duckServo.setPosition(servoPosition);
+          DuckArm.setPosition(servoPosition);
 
       }
 
@@ -49,8 +49,8 @@ public class PushButtonPractice extends OpMode {
     @Override
     public void start() {
 
-        while (gamepad1.x)
-            intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        //while (gamepad1.x)
+            //intake.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     @Override
