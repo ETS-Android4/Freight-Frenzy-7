@@ -41,7 +41,7 @@ public class TestOpenCV1 extends OpMode {
             public void onError(int errorCode) {
 
             }
-        });
+            });
             }
 
 
