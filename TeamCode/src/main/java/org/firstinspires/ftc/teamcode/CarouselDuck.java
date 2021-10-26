@@ -95,6 +95,8 @@ public class CarouselDuck
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
 
+
+        //this is a comment to show change.
         // Define and initialize ALL installed servos.
         DuckArm  = hwMap.get(Servo.class, "Duck_Arm");
         DuckSpinner = hwMap.get(Servo.class, "Duck_Spinner");
