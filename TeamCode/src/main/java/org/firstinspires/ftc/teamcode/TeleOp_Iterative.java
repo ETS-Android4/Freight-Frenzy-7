@@ -59,9 +59,9 @@ public class TeleOp_Iterative extends OpMode
     DriveTrain MecDrive = new DriveTrain();
     private ElapsedTime runtime = new ElapsedTime();
 
-    private double Drive = 0;
-    private double Strafe = 0;
-    private double Turn = 0;
+    //private double Drive = 0;
+    //private double Strafe = 0;
+    //private double Turn = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -99,9 +99,9 @@ public class TeleOp_Iterative extends OpMode
     @Override
     public void loop() {
         // GamePad Inputs
-        Drive = -gamepad1.left_stick_y;
-        Strafe = gamepad1.left_stick_x;
-        Turn  =  gamepad1.right_stick_x;
+        MecDrive.drive = -gamepad1.left_stick_y;
+        MecDrive.strafe = gamepad1.left_stick_x;
+        MecDrive.turn  =  gamepad1.right_stick_x;
 
         //  Robot Functions
 
@@ -111,7 +111,7 @@ public class TeleOp_Iterative extends OpMode
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)");
+        telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
     }
 
     /*

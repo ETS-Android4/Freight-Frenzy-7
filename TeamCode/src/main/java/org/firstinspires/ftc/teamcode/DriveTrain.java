@@ -48,18 +48,18 @@ public class DriveTrain
     public DcMotor RFDrive = null;
     public DcMotor LBDrive = null;
     public DcMotor RBDrive = null;
-
-
-    /* local OpMode members. */
-    HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
     public double leftFrontPower = 0;
     public double rightFrontPower = 0;
     public double leftBackPower = 0;
     public double rightBackPower = 0;
-    private double drive = 0;
-    private double strafe = 0;
-    private double turn = 0;
+    public double drive = 0;
+    public double strafe = 0;
+    public double turn = 0;
+
+    /* local OpMode members. */
+    HardwareMap hwMap           =  null;
+    private ElapsedTime period  = new ElapsedTime();
+
 
     /* Constructor */
     public DriveTrain(){
