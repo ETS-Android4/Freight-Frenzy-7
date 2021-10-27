@@ -53,13 +53,13 @@ public class DriveTrain
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
-    public double LeftFrontPower = 0;
-    public double RightFrontPower = 0;
-    public double LeftBackPower = 0;
-    public double RightBackPower = 0;
-    private double Drive = 0;
-    private double Strafe = 0;
-    private double Turn = 0;
+    public double leftFrontPower = 0;
+    public double rightFrontPower = 0;
+    public double leftBackPower = 0;
+    public double rightBackPower = 0;
+    private double drive = 0;
+    private double strafe = 0;
+    private double turn = 0;
 
     /* Constructor */
     public DriveTrain(){
@@ -68,6 +68,7 @@ public class DriveTrain
 
 
     /* Initialize Hardware interfaces */
+
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
@@ -96,6 +97,23 @@ public class DriveTrain
     public void MecanumDrive(){
 
         // Put Mecanum Drive math and motor commands here.
+
+        double dPercent = Math.abs(drive) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+        double sPercent = Math.abs(strafe) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
+        double tPercent = Math.abs(turn) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
+
+        rightFrontPower    = (drive * dPercent) + (-strafe * sPercent) + (-turn * tPercent);
+        rightBackPower   = (drive * dPercent) + (strafe * sPercent) + (-turn * tPercent);
+        leftFrontPower    = (drive * dPercent) + (strafe * sPercent) + (turn * tPercent);
+        leftBackPower   = (drive * dPercent) + (-strafe * sPercent) + (turn * tPercent);
+
+        // Send calculated power to wheels
+        LFDrive.setPower(leftFrontPower);
+        RFDrive.setPower(rightFrontPower);
+        LBDrive.setPower(leftBackPower);
+        RBDrive.setPower(rightBackPower);
+
+
 
     }
 
