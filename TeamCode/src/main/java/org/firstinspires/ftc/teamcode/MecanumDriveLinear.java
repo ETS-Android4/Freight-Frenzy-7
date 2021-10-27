@@ -106,24 +106,22 @@ public class MecanumDriveLinear extends LinearOpMode {
             double strafe = gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
             double dPercent = Math.abs(drive) / (Math.abs(drive) + Math.abs(strafe) + Math.abs(turn));
+            double sPercent = Math.abs(strafe) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
+            double tPercent = Math.abs(turn) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
 
             // Math Functions go here. duplicate math is used.
-            leftFrontPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightFrontPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-            leftBackPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightBackPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            rightFrontPower    = (drive * dPercent) + (-strafe * sPercent) + (-turn * tPercent);
+            rightBackPower   = (drive * dPercent) + (strafe * sPercent) + (-turn * tPercent);
+            leftFrontPower    = (drive * dPercent) + (strafe * sPercent) + (turn * tPercent);
+            leftBackPower   = (drive * dPercent) + (-strafe * sPercent) + (turn * tPercent);
 
 
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
             LFDrive.setPower(leftFrontPower);
             RFDrive.setPower(rightFrontPower);
-            LBDrive.setPower(leftFrontPower);
-            RBDrive.setPower(rightFrontPower);
+            LBDrive.setPower(leftBackPower);
+            RBDrive.setPower(rightBackPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
