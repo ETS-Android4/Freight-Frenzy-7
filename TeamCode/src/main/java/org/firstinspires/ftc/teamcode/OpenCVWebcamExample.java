@@ -25,8 +25,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -206,7 +208,55 @@ public class OpenCVWebcamExample extends LinearOpMode
             /*
              * Draw a simple box around the middle 1/2 of the entire frame
              */
-            Imgproc.rectangle(
+
+            Mat outPut = new Mat();
+            int Rect1X = 20;
+            int Rect2X = 160;
+            int Rect1Y = 150;
+            int Rect2Y = 150;
+            int Rectwidth = 60;
+            int Rectheight = 60;
+            int Rect2width = 60;
+            int Rect2height = 60;
+            Mat CenterCrop = new Mat();
+            Mat RightCrop = new Mat();
+
+
+
+            input.copyTo(outPut);
+            Rect rect = new Rect(Rect1X, Rect1Y, Rectwidth, Rectheight);
+            Rect rect2 = new Rect(Rect2X, Rect2Y, Rect2width, Rect2height);
+
+            Scalar rectanglecolor = new Scalar(0, 0, 0);
+
+            Imgproc.rectangle(outPut, rect, rectanglecolor, 2);
+            Imgproc.rectangle(outPut, rect2, rectanglecolor, 2);
+           /*CenterCrop = input.submat(rect);
+            RightCrop = input.submat(rect2);
+
+        // We think channel 0 (coi) may be blue.
+            Core.extractChannel(CenterCrop, CenterCrop, 2);
+            Core.extractChannel(RightCrop, RightCrop, 2);
+
+            Scalar CenterAverageR = Core.mean(CenterCrop);
+            double FinalCenterAverageR = CenterAverageR.val[0];
+
+            Scalar RightAverageR = Core.mean(RightCrop);
+            double FinalRightAverageR = RightAverageR.val[0];
+
+            if (FinalRightAverageR < FinalCenterAverageR) {
+        // team element = right
+            }
+            if (FinalRightAverageR > FinalCenterAverageR) {/
+                //team element = center
+            }
+            if (FinalRightAverageR <> FinalCenterAverageR) {
+        // team element = left
+            }
+*/
+            return outPut;
+            //the first rectangle code
+          /* Imgproc.rectangle(
                     input,
                     new Point(
                             input.cols()/4,
@@ -215,14 +265,14 @@ public class OpenCVWebcamExample extends LinearOpMode
                             input.cols()*(3f/4f),
                             input.rows()*(3f/4f)),
                     new Scalar(0, 255, 0), 4);
-
+*/
             /**
              * NOTE: to see how to get data from your pipeline to your OpMode as well as how
              * to change which stage of the pipeline is rendered to the viewport when it is
              * tapped, please see {@link PipelineStageSwitchingExample}
              */
 
-            return input;
+            //return input;
         }
 
         @Override

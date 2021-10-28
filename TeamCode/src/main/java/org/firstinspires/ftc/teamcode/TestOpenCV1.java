@@ -53,14 +53,14 @@ public class TestOpenCV1 extends OpMode {
 
 class ShippingElementDetectingPipeline extends OpenCvPipeline {
     Mat outPut = new Mat();
-    int Rect1X = 0;
-    int Rect2X = 0;
-    int Rect1Y = 0;
-    int Rect2Y = 0;
-    int Rectwidth = 119;
-    int Rectheight = 220;
-    int Rect2width = 119;
-    int Rect2height = 220;
+    int Rect1X = 20;
+    int Rect2X = 160;
+    int Rect1Y = 60;
+    int Rect2Y = 60;
+    int Rectwidth = 60;
+    int Rectheight = 60;
+    int Rect2width = 60;
+    int Rect2height = 60;
     Mat CenterCrop = new Mat();
     Mat RightCrop = new Mat();
 
