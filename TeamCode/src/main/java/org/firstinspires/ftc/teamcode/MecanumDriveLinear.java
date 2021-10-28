@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="MecanumDrive", group="OpMode")
-@Disabled
+//@Disabled
 public class MecanumDriveLinear extends LinearOpMode {
 
     // Declare OpMode members.
@@ -69,10 +69,10 @@ public class MecanumDriveLinear extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        LFDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        LBDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        RBDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        LFDrive  = hardwareMap.get(DcMotor.class, "LFDrive");
+        RFDrive = hardwareMap.get(DcMotor.class, "RFDrive");
+        LBDrive  = hardwareMap.get(DcMotor.class, "LBDrive");
+        RBDrive = hardwareMap.get(DcMotor.class, "RBDrive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery

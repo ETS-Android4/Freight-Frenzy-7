@@ -17,7 +17,7 @@ public class PushButtonPractice extends OpMode {
 
     private DcMotor intake = null;
     private Servo DuckArm = null;
-    double servoPosition = 0.0;
+    private double servoPosition = 0.0;
 
     @Override
     public void init (){
