@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
-@Disabled
+//@Disabled
 public class TeleOp_Iterative extends OpMode
 {
     // Declare OpMode members.
@@ -102,6 +102,7 @@ public class TeleOp_Iterative extends OpMode
         MecDrive.drive = -gamepad1.left_stick_y;
         MecDrive.strafe = gamepad1.left_stick_x;
         MecDrive.turn  =  gamepad1.right_stick_x;
+
 
         //  Robot Functions
 
