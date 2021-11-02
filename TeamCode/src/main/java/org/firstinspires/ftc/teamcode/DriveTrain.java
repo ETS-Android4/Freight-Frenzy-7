@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -79,10 +80,10 @@ public class DriveTrain
         LBDrive  = ahwMap.get(DcMotor.class, "LBDrive");
         RBDrive = ahwMap.get(DcMotor.class, "RBDrive");
 
-        LFDrive.setDirection(DcMotor.Direction.FORWARD);
-        RFDrive.setDirection(DcMotor.Direction.REVERSE);
-        LBDrive.setDirection(DcMotor.Direction.FORWARD);
-        RBDrive.setDirection(DcMotor.Direction.REVERSE);
+        LFDrive.setDirection(DcMotor.Direction.REVERSE);
+        RFDrive.setDirection(DcMotor.Direction.FORWARD);
+        LBDrive.setDirection(DcMotor.Direction.REVERSE);
+        RBDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         LFDrive.setPower(0);
