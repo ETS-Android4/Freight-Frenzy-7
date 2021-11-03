@@ -58,6 +58,10 @@ public class TeleOp_Iterative extends OpMode
     // Declare OpMode members.
     DriveTrain MecDrive = new DriveTrain();
     private ElapsedTime runtime = new ElapsedTime();
+    Intake intake = new Intake();
+    CarouselDuck spinner = new CarouselDuck();
+    Lift lift = new Lift();
+
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -103,11 +107,12 @@ public class TeleOp_Iterative extends OpMode
         MecDrive.strafe = gamepad1.left_stick_x;
         MecDrive.turn  =  gamepad1.right_stick_x;
 
+        intake.dForward = gamepad2.right_bumper;
+        intake.dBackward = gamepad2.left_bumper;
 
         //  Robot Functions
 
         MecDrive.MecanumDrive();
-
 
 
         // Show the elapsed game time and wheel power.

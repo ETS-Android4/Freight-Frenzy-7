@@ -76,11 +76,10 @@ public class MecanumDriveLinear extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        LFDrive.setDirection(DcMotor.Direction.FORWARD);
-        RFDrive.setDirection(DcMotor.Direction.REVERSE);
-        LBDrive.setDirection(DcMotor.Direction.FORWARD);
-        RBDrive.setDirection(DcMotor.Direction.REVERSE);
-
+        LFDrive.setDirection(DcMotor.Direction.REVERSE);
+        RFDrive.setDirection(DcMotor.Direction.FORWARD);
+        LBDrive.setDirection(DcMotor.Direction.REVERSE);
+        RBDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();

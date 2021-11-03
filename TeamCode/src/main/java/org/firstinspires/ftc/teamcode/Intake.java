@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
 
+    public boolean dForward;
+    public boolean dBackward;
     public DcMotor intake;
     HardwareMap hwMap = null;
 
@@ -21,9 +23,15 @@ public class Intake {
 
         intake  = ahwMap.get(DcMotor.class, "intake");
 
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        dForward = intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        dBackward = intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
         intake.setPower(0);
     }
+
+    public void intake(){
+        boolean dForward;
+        boolean dBackward;
+}
 
 }
