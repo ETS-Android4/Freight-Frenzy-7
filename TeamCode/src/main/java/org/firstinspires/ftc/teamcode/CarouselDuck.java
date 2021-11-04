@@ -39,8 +39,14 @@ public class CarouselDuck {
 
     public Servo    DuckArm    = null;
     public DcMotor    DuckSpinner   = null;
+    public boolean armOut;
+    public boolean armIn;
+    public boolean duckSpinner;
 
     public static final double rest =  0.5 ;
+    private final double arm = 0.25;
+    private final double spinnerSpeed = 0.6;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -64,6 +70,17 @@ public class CarouselDuck {
         DuckSpinner.setPower(0);
 
 
+    }
+    public void carouselDuck(){
+        if (armOut) {
+            DuckArm.setPosition(arm);
+        }
+        if (armIn) {
+            DuckArm.setPosition(rest);
+        }
+        if (duckSpinner) {
+            DuckSpinner.setPower(spinnerSpeed);
+        }
     }
  }
 

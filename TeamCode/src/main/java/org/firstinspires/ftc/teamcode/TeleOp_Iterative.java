@@ -110,9 +110,15 @@ public class TeleOp_Iterative extends OpMode
         intake.dForward = gamepad2.right_bumper;
         intake.dBackward = gamepad2.left_bumper;
 
+        spinner.armOut = gamepad2.a;
+        spinner.armIn = gamepad2.b;
+        spinner.duckSpinner = gamepad2.x;
+
         //  Robot Functions
 
         MecDrive.MecanumDrive();
+        intake.intake();
+        spinner.carouselDuck();
 
 
         // Show the elapsed game time and wheel power.

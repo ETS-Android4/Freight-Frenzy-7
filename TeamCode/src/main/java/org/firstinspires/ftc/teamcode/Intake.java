@@ -11,8 +11,12 @@ public class Intake {
     public DcMotor intake;
     HardwareMap hwMap = null;
 
+    //private variables
+    private final double inSpeed = 0.555;
+    private final double outSpeed = 0.555;
+
     /* Constructor */
-    public Intake(){
+    public Intake() {
 
     }
     /* Initialize Hardware interfaces */
@@ -21,17 +25,22 @@ public class Intake {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        intake  = ahwMap.get(DcMotor.class, "intake");
+        intake = ahwMap.get(DcMotor.class, "intake");
 
-        dForward = intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        dBackward = intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
         intake.setPower(0);
     }
+//banana
+    public void intake() {
+        if (dForward) {
+            intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
-    public void intake(){
-        boolean dForward;
-        boolean dBackward;
-}
+            intake.setPower(inSpeed);
+        }
+        if (dBackward) {
+            intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
+            intake.setPower(outSpeed);
+        }
+    }
 }
