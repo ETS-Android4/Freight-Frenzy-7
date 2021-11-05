@@ -37,8 +37,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class CarouselDuck {
 
-    public Servo    DuckArm    = null;
-    public DcMotor    DuckSpinner   = null;
+    public Servo DuckArm = null;
+    public DcMotor DuckSpinner = null;
     public boolean armOut;
     public boolean armIn;
     public boolean duckSpinner;
