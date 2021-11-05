@@ -220,7 +220,8 @@ public class OpenCVWebcamExample extends LinearOpMode
             int Rect2height = 60;
             Mat CenterCrop = new Mat();
             Mat RightCrop = new Mat();
-
+            //Left location = 0, center location = 1, right location = 2
+            int TeamEleLoc = -1;
 
 
             input.copyTo(outPut);
@@ -231,12 +232,19 @@ public class OpenCVWebcamExample extends LinearOpMode
 
             Imgproc.rectangle(outPut, rect, rectanglecolor, 2);
             Imgproc.rectangle(outPut, rect2, rectanglecolor, 2);
-           /*CenterCrop = input.submat(rect);
+           CenterCrop = input.submat(rect);
             RightCrop = input.submat(rect2);
 
         // We think channel 0 (coi) may be blue.
-            Core.extractChannel(CenterCrop, CenterCrop, 2);
-            Core.extractChannel(RightCrop, RightCrop, 2);
+            //Core.extractChannel(CenterCrop, CenterCrop, 0);
+            //Core.extractChannel(RightCrop, RightCrop, 0);
+
+            Core.extractChannel(CenterCrop, CenterCrop, 1);
+            Core.extractChannel(RightCrop, RightCrop, 1);
+
+
+            //Core.extractChannel(CenterCrop, CenterCrop, 2);
+           //Core.extractChannel(RightCrop, RightCrop, 2);
 
             Scalar CenterAverageR = Core.mean(CenterCrop);
             double FinalCenterAverageR = CenterAverageR.val[0];
@@ -244,28 +252,25 @@ public class OpenCVWebcamExample extends LinearOpMode
             Scalar RightAverageR = Core.mean(RightCrop);
             double FinalRightAverageR = RightAverageR.val[0];
 
-            if (FinalRightAverageR < FinalCenterAverageR) {
-        // team element = right
+            if (FinalRightAverageR < 200 && FinalCenterAverageR < 200) {
+                //team element = left
+                TeamEleLoc = 0;
             }
-            if (FinalRightAverageR > FinalCenterAverageR) {/
+
+            if (FinalCenterAverageR > 200){
                 //team element = center
+                TeamEleLoc = 1;
             }
-            if (FinalRightAverageR <> FinalCenterAverageR) {
-        // team element = left
+            if (FinalRightAverageR > 200){
+                //team element = right
+                TeamEleLoc = 2;
             }
-*/
+            telemetry.addData("center square green channel", FinalCenterAverageR);
+            telemetry.addData("right square green channel", FinalRightAverageR);
+            telemetry.addData("Team Element Location", TeamEleLoc);
+            telemetry.update();
             return outPut;
-            //the first rectangle code
-          /* Imgproc.rectangle(
-                    input,
-                    new Point(
-                            input.cols()/4,
-                            input.rows()/4),
-                    new Point(
-                            input.cols()*(3f/4f),
-                            input.rows()*(3f/4f)),
-                    new Scalar(0, 255, 0), 4);
-*/
+
             /**
              * NOTE: to see how to get data from your pipeline to your OpMode as well as how
              * to change which stage of the pipeline is rendered to the viewport when it is
