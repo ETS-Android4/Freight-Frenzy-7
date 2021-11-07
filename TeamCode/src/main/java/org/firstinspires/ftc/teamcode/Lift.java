@@ -48,13 +48,16 @@ public class Lift {
             telemetry.addData("Lift Position" , liftPosition);
             telemetry.update();
         }
+
         //Autolift Math
-        /*public void Autolift(){
+    /*
+    public void Autolift(){
 
-            liftPosition.this =  (low * mult);
-        }
+       this.liftPosition =  (int) (low * mult);
+    }
+    */
 
-         */
+
 }
 
 
