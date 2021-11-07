@@ -22,7 +22,7 @@ public class Lift {
     private final double mid = 4;
     private final double high = 6;
     private final double mult = 537.7;
-    private final double MaxPower = 50;
+    private final double MaxPower = 0.5;
 
 
     /* Constructor */

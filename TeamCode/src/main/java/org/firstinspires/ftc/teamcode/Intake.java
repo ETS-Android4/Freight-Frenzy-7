@@ -13,8 +13,8 @@ public class Intake {
 
     //private variables
     //banana
-    private final double inPower = 100;
-    private final double outPower = 65;
+    private final double inPower = 1;
+    private final double outPower = .65;
 
     /* Constructor */
     public Intake() {

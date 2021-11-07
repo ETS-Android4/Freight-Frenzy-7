@@ -45,7 +45,7 @@ public class CarouselDuck {
 
     public static final double rest =  0.5 ;
     private final double arm = 0.25;
-    private final double spinnerPower = 100;
+    private final double spinnerPower = 1;
 
 
     /* local OpMode members. */
