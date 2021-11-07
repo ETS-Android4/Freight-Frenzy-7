@@ -50,7 +50,7 @@ public class Lift {
         }
 
         //Autolift Math
-    /*
+    /**
     public void Autolift(){
 
        this.liftPosition =  (int) (low * mult);
