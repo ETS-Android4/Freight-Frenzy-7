@@ -22,6 +22,7 @@ public class Lift {
     private final double mid = 4;
     private final double high = 6;
     private final double mult = 537.7;
+    private final double MaxPower = 50;
 
 
     /* Constructor */
@@ -42,23 +43,11 @@ public class Lift {
     }
 
     public void ManualLift() {
-        if (elevator > 0){
-            Lift.setDirection(DcMotorSimple.Direction.FORWARD);
-            Lift.setPower(0.5);
+            Lift.setPower(elevator * MaxPower);
             liftPosition = Lift.getCurrentPosition();
             telemetry.addData("Lift Position" , liftPosition);
             telemetry.update();
         }
-        if (elevator < 0){
-            Lift.setDirection(DcMotorSimple.Direction.REVERSE);
-            Lift.setPower(0.5);
-            liftPosition = Lift.getCurrentPosition();
-            telemetry.addData("Lift Position" , liftPosition);
-            telemetry.update();
-        }
-
-    }
-
 }
 
 

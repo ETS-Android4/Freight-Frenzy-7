@@ -6,14 +6,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
 
-    public boolean dForward;
-    public boolean dBackward;
+    public boolean PickUp;
+    public boolean Drop;
     public DcMotor intake;
     HardwareMap hwMap = null;
 
     //private variables
-    private final double inSpeed = 0.555;
-    private final double outSpeed = 0.555;
+    //banana
+    private final double inPower = 100;
+    private final double outPower = 65;
 
     /* Constructor */
     public Intake() {
@@ -26,21 +27,20 @@ public class Intake {
         hwMap = ahwMap;
 
         intake = ahwMap.get(DcMotor.class, "intake");
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         intake.setPower(0);
     }
 //banana
     public void intake() {
-        if (dForward) {
-            intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        if (PickUp) {
 
-            intake.setPower(inSpeed);
+            intake.setPower(inPower);
         }
-        if (dBackward) {
-            intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        if (Drop) {
 
-            intake.setPower(outSpeed);
+            intake.setPower(outPower);
         }
     }
 }

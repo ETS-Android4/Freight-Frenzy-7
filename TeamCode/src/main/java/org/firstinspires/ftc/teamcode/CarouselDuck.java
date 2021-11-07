@@ -45,7 +45,7 @@ public class CarouselDuck {
 
     public static final double rest =  0.5 ;
     private final double arm = 0.25;
-    private final double spinnerSpeed = 0.6;
+    private final double spinnerPower = 100;
 
 
     /* local OpMode members. */
@@ -72,7 +72,7 @@ public class CarouselDuck {
 
     }
 
-    public void carouselDuck(){
+    public void carouselDuck() {
         if (armOut) {
             DuckArm.setPosition(arm);
         }
@@ -80,7 +80,7 @@ public class CarouselDuck {
             DuckArm.setPosition(rest);
         }
         if (duckSpinner) {
-            DuckSpinner.setPower(spinnerSpeed);
+            DuckSpinner.setPower(spinnerPower);
         }
     }
  }

@@ -75,6 +75,9 @@ public class TeleOp_Iterative extends OpMode
         telemetry.addData("Status", "Initializing");
 
         MecDrive.init(hardwareMap);
+        intake.init(hardwareMap);
+        lift.init(hardwareMap);
+        spinner.init(hardwareMap);
 
 
 
@@ -107,14 +110,14 @@ public class TeleOp_Iterative extends OpMode
         MecDrive.strafe = gamepad1.left_stick_x;
         MecDrive.turn  =  gamepad1.right_stick_x;
 
-        intake.dForward = gamepad2.right_bumper;
-        intake.dBackward = gamepad2.left_bumper;
+        intake.PickUp = gamepad2.right_bumper;
+        intake.Drop = gamepad2.left_bumper;
 
         spinner.armOut = gamepad2.a;
         spinner.armIn = gamepad2.b;
         spinner.duckSpinner = gamepad2.x;
 
-        lift.elevator = gamepad2.right_stick_y;
+        lift.elevator = -gamepad2.right_stick_y;
 
         //  Robot Functions
 
