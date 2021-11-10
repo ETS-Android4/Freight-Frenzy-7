@@ -67,7 +67,7 @@ public class CarouselDuck {
         DuckSpinner = hwMap.get(DcMotor.class, "Spinner");
         DuckArm.setPosition(rest);
         DuckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
-        DuckSpinner.setPower(1);
+        DuckSpinner.setPower(0);
 
 
     }
