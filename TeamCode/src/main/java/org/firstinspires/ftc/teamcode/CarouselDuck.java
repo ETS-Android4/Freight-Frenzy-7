@@ -42,6 +42,7 @@ public class CarouselDuck {
     public boolean armOut;
     public boolean armIn;
     public boolean duckSpinner;
+    public boolean stopSpinner;
 
     public static final double rest =  0.5 ;
     private final double arm = 0.25;
@@ -67,7 +68,7 @@ public class CarouselDuck {
         DuckSpinner = hwMap.get(DcMotor.class, "Spinner");
         DuckArm.setPosition(rest);
         DuckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
-        DuckSpinner.setPower(1);
+        DuckSpinner.setPower(0);
 
 
     }
@@ -81,6 +82,9 @@ public class CarouselDuck {
         }
         if (duckSpinner) {
             DuckSpinner.setPower(spinnerPower);
+        }
+        if (stopSpinner) {
+            DuckSpinner.setPower(0);
         }
     }
  }

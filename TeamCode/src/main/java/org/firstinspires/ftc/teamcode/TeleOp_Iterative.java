@@ -115,12 +115,14 @@ public class TeleOp_Iterative extends OpMode
 
         intake.PickUp = gamepad2.right_bumper;
         intake.Drop = gamepad2.left_bumper;
+        intake.stopIntake = gamepad2.dpad_down;
 
         spinner.armOut = gamepad2.a;
         spinner.armIn = gamepad2.b;
         spinner.duckSpinner = gamepad2.x;
+        spinner.stopSpinner = gamepad2.y;
 
-        lift.elevator = -gamepad2.right_stick_y;
+        lift.elevator = gamepad2.right_stick_y;
 
         //  Robot Functions
 

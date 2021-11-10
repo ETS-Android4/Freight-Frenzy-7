@@ -10,6 +10,7 @@ public class Intake {
     public boolean Drop;
     public DcMotor intake;
     HardwareMap hwMap = null;
+    public boolean stopIntake;
 
     //private variables
     //banana
@@ -27,7 +28,7 @@ public class Intake {
         hwMap = ahwMap;
 
         intake = ahwMap.get(DcMotor.class, "intake");
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         intake.setPower(0);
@@ -41,6 +42,9 @@ public class Intake {
         if (Drop) {
 
             intake.setPower(outPower);
+        }
+        if (stopIntake) {
+            intake.setPower(0);
         }
     }
 }
