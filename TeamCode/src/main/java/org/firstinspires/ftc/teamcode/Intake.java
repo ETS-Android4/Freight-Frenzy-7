@@ -10,6 +10,7 @@ public class Intake {
     public boolean Drop;
     public DcMotor intake;
     HardwareMap hwMap = null;
+    public boolean stopIntake;
 
     //private variables
     //banana
@@ -41,6 +42,9 @@ public class Intake {
         if (Drop) {
 
             intake.setPower(outPower);
+        }
+        if (stopIntake) {
+            intake.setPower(0);
         }
     }
 }
