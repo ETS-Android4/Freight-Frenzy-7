@@ -19,6 +19,7 @@ public class OpenCVWebcam2 {
     //public varibles
     public OpenCvCamera webcam;
     public int TeamEleLoc;
+    public int FinalTeamEleLoc;
     public HardwareMap hwMap = null;
     public Mat outPut = new Mat();
 
@@ -80,6 +81,41 @@ public class OpenCVWebcam2 {
         @Override
         public Mat processFrame(Mat input)
         {
+           /** input.copyTo(outPut);
+
+            Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
+            Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
+            LeftCrop = input.submat(rectL);
+            RightCrop = input.submat(rectR);
+
+            // channel 1 = green
+
+            Core.extractChannel(LeftCrop, LeftCrop, 1);
+            Core.extractChannel(RightCrop, RightCrop, 1);
+
+            LeftAverageR = Core.mean(LeftCrop);
+            FinaLeftAverageR = LeftAverageR.val[0];
+
+            RightAverageR = Core.mean(RightCrop);
+            FinalRightAverageR = RightAverageR.val[0];
+
+            if (FinalRightAverageR < 150 && FinaLeftAverageR < 150) {
+                //team element = left
+                TeamEleLoc = 0;
+            }
+
+            if (FinaLeftAverageR > 150){
+                //team element = center
+                TeamEleLoc = 1;
+            }
+            if (FinalRightAverageR > 150){
+                //team element = right
+                TeamEleLoc = 2;
+            }
+
+
+            return outPut;
+*/
             input.copyTo(outPut);
 
             Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
@@ -114,7 +150,6 @@ public class OpenCVWebcam2 {
 
 
             return outPut;
-
             // write crop code for third square
             // write two square method code for comparing two of the squares
             // white three square method for determinng team element locationat highest value of three squares

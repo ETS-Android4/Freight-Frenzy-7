@@ -78,7 +78,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
    // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
- //   ModernRoboticsI2cGyro   gyro    = null;                    // Additional Gyro device
+ ModernRoboticsI2cGyro   gyro    = null;                    // Additional Gyro device
 
     DriveTrain MecDrive = new DriveTrain();
     private ElapsedTime runtime = new ElapsedTime();
@@ -97,6 +97,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
 
+        Vision.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -129,11 +130,12 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         while (!isStarted()) {
             telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
             telemetry.update();
+            Vision.FinalTeamEleLoc = Vision.TeamEleLoc;
         }
 
         gyro.resetZAxisIntegrator();
 
-        // Step through each leg of the path,
+      /**  // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // Put a hold after each turn
         gyroDrive(DRIVE_SPEED, 48.0, 0.0);    // Drive FWD 48 inches
@@ -148,7 +150,9 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+       */
     }
+
 
 
    /**
@@ -166,7 +170,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
     public void gyroDrive ( double speed,
                             double distance,
                             double angle) {
-
+/**
         int     newLeftTarget;
         int     newRightTarget;
         int     moveCounts;
@@ -239,6 +243,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+ */
     }
 
     /**
@@ -253,12 +258,14 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
      *                   If a relative angle is required, add/subtract from current heading.
      */
     public void gyroTurn (  double speed, double angle) {
-
+/*
         // keep looping while we are still active, and not on heading.
         while (opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF)) {
             // Update telemetry & Allow time for other processes to run.
             telemetry.update();
         }
+
+ */
     }
 
     /**
@@ -272,7 +279,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
      * @param holdTime   Length of time (in seconds) to hold the specified heading.
      */
     public void gyroHold( double speed, double angle, double holdTime) {
-
+/*
         ElapsedTime holdTimer = new ElapsedTime();
 
         // keep looping while we have time remaining.
@@ -286,6 +293,8 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         // Stop all motion;
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
+
+ */
     }
 
     /**
@@ -299,12 +308,13 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
      * @return
      */
     boolean onHeading(double speed, double angle, double PCoeff) {
+
         double   error ;
         double   steer ;
         boolean  onTarget = false ;
         double leftSpeed;
         double rightSpeed;
-
+/**
         // determine turn power based on +/- error
         error = getError(angle);
 
@@ -328,8 +338,9 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         telemetry.addData("Target", "%5.2f", angle);
         telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
         telemetry.addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
-
+*/
         return onTarget;
+
     }
 
     /**
