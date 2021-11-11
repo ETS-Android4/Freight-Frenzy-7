@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.QRCodeDetector;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -24,7 +24,6 @@ public class OpenCVWebcam2 {
     public Mat outPut = new Mat();
     public Core.MinMaxLocResult LeftMax;
     public Core.MinMaxLocResult RightMax;
-
 
     //private variables
 
@@ -47,7 +46,11 @@ public class OpenCVWebcam2 {
     private double FinaLeftAverageR;
     private double FinalRightAverageR;
     private Scalar RightAverageR;
-
+    private double AdjustedThreshold;
+    private static final double UnadjustedThreshold = 200;
+    private Core.MinMaxLocResult GreenMinMax;
+    private Mat InputGreenChannel = new Mat();
+    private Mat QROutput = new Mat();
 
     /* Constructor */
     public OpenCVWebcam2() {
@@ -74,8 +77,6 @@ public class OpenCVWebcam2 {
         });
     }
 
-
-
     class SamplePipeline extends OpenCvPipeline
     {
         boolean viewportPaused;
@@ -83,7 +84,7 @@ public class OpenCVWebcam2 {
         @Override
         public Mat processFrame(Mat input)
         {
-           /** input.copyTo(outPut);
+           /* input.copyTo(outPut);
 
             Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
             Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
@@ -133,20 +134,58 @@ public class OpenCVWebcam2 {
             LeftMax = Core.minMaxLoc(LeftCrop);
             RightMax = Core.minMaxLoc(RightCrop);
 
-            if (LeftMax.maxVal < 200 && RightMax.maxVal < 200) {
+            Core.extractChannel(input, InputGreenChannel, 1);
+
+            GreenMinMax = Core.minMaxLoc(InputGreenChannel);
+            AdjustedThreshold = UnadjustedThreshold * (GreenMinMax.maxVal / 255.0);
+
+            //QR Code detection
+            QRCodeDetector QR = new QRCodeDetector();
+            QR.detect(input, QROutput);
+
+            //points for drawing two vertical lines to split the viewing area into thirds
+            Point LeftLineTop = new Point(input.size().width / 3,  0 );
+            Point LeftLineBottom = new Point (input.size().width / 3, input.size().height);
+            Point RightLineTop = new Point(2 * (input.size().width / 3),  0 );
+            Point RightLineBottom = new Point (2 * (input.size().width / 3), input.size().height);
+
+            //draws the two vertical lines on the viewing area
+            Imgproc.line(outPut, LeftLineTop, LeftLineBottom, new Scalar(0,0,0));
+            Imgproc.line(outPut, RightLineTop, RightLineBottom, new Scalar (0,0,0));
+
+            //draw lines to form rectangle around QR code
+            for (int i = 0; i < QROutput.cols(); i++) {
+                Point pt1 = new Point(QROutput.get(0, i));
+                Point pt2 = new Point(QROutput.get(0, (i + 1) % 4));
+                Imgproc.line(outPut, pt1, pt2, new Scalar(255, 0, 0), 3);
+            }
+
+            //top left corner of QR code can be used for TeamEleLoc update if this works
+            double[] TopLeftQRCodePoint = QROutput.get(0, 0);
+
+//            if (TopLeftQRCodePoint[0] < input.size().width / 3){
+//                TeamEleLoc = 0;
+//            }
+//            else if (TopLeftQRCodePoint[0] < 2 * (input.size().width / 3)){
+//                TeamEleLoc = 1;
+//            }
+//            else {
+//                TeamEleLoc = 2;
+//            }
+
+            if (LeftMax != null && LeftMax.maxVal < AdjustedThreshold && RightMax != null && RightMax.maxVal < AdjustedThreshold) {
                 //team element = left
                 TeamEleLoc = 0;
             }
 
-            if (LeftMax.maxVal > 200){
+            if (LeftMax != null && LeftMax.maxVal > AdjustedThreshold){
                 //team element = center
                 TeamEleLoc = 1;
             }
-            if (RightMax.maxVal > 200){
+            if (RightMax != null && RightMax.maxVal > AdjustedThreshold){
                 //team element = right
                 TeamEleLoc = 2;
             }
-
 
             return outPut;
             // write crop code for third square
