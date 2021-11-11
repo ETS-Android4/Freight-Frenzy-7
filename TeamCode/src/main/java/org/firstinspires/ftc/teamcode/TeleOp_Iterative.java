@@ -62,7 +62,6 @@ public class TeleOp_Iterative extends OpMode
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
 
-    OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
 
     //private double Drive = 0;
@@ -80,7 +79,7 @@ public class TeleOp_Iterative extends OpMode
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
-        Vision.init(hardwareMap);
+
 
 
 
