@@ -78,7 +78,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
    // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
- ModernRoboticsI2cGyro   gyro    = null;                    // Additional Gyro device
+ // ModernRoboticsI2cGyro   gyro    = null;                    // Additional Gyro device
 
     DriveTrain MecDrive = new DriveTrain();
     private ElapsedTime runtime = new ElapsedTime();
@@ -102,7 +102,7 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+        //gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
 
         // Ensure the robot it stationary, then reset the encoders and calibrate the gyro.
       //  robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -112,13 +112,13 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         telemetry.addData(">", "Calibrating Gyro");    //
         telemetry.update();
 
-        gyro.calibrate();
+        //gyro.calibrate();
 
         // make sure the gyro is calibrated before continuing
-        while (!isStopRequested() && gyro.isCalibrating())  {
-            sleep(50);
-            idle();
-        }
+        //while (!isStopRequested() && gyro.isCalibrating())  {
+        //    sleep(50);
+        //    idle();
+        //}
 
         telemetry.addData(">", "Robot Ready.");    //
         telemetry.update();
@@ -128,12 +128,17 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
 
         // Wait for the game to start (Display Gyro value), and reset gyro before we move..
         while (!isStarted()) {
-            telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
+            //telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
+            telemetry.addData("left square green channel", Vision.LeftMax.maxVal);
+            telemetry.addData("right square green channel", Vision.RightMax.maxVal);
+            telemetry.addData("Team Element Location", Vision.TeamEleLoc);
             telemetry.update();
             Vision.FinalTeamEleLoc = Vision.TeamEleLoc;
         }
-
-        gyro.resetZAxisIntegrator();
+       Vision.webcam.stopStreaming();
+        telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
+        telemetry.update();
+        //gyro.resetZAxisIntegrator();
 
       /**  // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
@@ -351,13 +356,13 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
      */
     public double getError(double targetAngle) {
 
-        double robotError;
+       double robotError = 0;
 
         // calculate error in -179 to +180 range  (
-        robotError = targetAngle - gyro.getIntegratedZValue();
-        while (robotError > 180)  robotError -= 360;
-        while (robotError <= -180) robotError += 360;
-        return robotError;
+        //robotError = targetAngle - gyro.getIntegratedZValue();
+       // while (robotError > 180)  robotError -= 360;
+        //while (robotError <= -180) robotError += 360;
+       return robotError;
     }
 
     /**

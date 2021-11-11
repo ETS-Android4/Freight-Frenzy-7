@@ -22,6 +22,9 @@ public class OpenCVWebcam2 {
     public int FinalTeamEleLoc;
     public HardwareMap hwMap = null;
     public Mat outPut = new Mat();
+    public Core.MinMaxLocResult LeftMax;
+    public Core.MinMaxLocResult RightMax;
+
 
     //private variables
 
@@ -44,7 +47,6 @@ public class OpenCVWebcam2 {
     private double FinaLeftAverageR;
     private double FinalRightAverageR;
     private Scalar RightAverageR;
-
 
 
     /* Constructor */
@@ -128,22 +130,19 @@ public class OpenCVWebcam2 {
             Core.extractChannel(LeftCrop, LeftCrop, 1);
             Core.extractChannel(RightCrop, RightCrop, 1);
 
-            LeftAverageR = Core.mean(LeftCrop);
-            FinaLeftAverageR = LeftAverageR.val[0];
+            LeftMax = Core.minMaxLoc(LeftCrop);
+            RightMax = Core.minMaxLoc(RightCrop);
 
-            RightAverageR = Core.mean(RightCrop);
-            FinalRightAverageR = RightAverageR.val[0];
-
-            if (FinalRightAverageR < 150 && FinaLeftAverageR < 150) {
+            if (LeftMax.maxVal < 200 && RightMax.maxVal < 200) {
                 //team element = left
                 TeamEleLoc = 0;
             }
 
-            if (FinaLeftAverageR > 150){
+            if (LeftMax.maxVal > 200){
                 //team element = center
                 TeamEleLoc = 1;
             }
-            if (FinalRightAverageR > 150){
+            if (RightMax.maxVal > 200){
                 //team element = right
                 TeamEleLoc = 2;
             }
