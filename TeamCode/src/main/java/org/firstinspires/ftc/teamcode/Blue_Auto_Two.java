@@ -67,9 +67,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_One", group="Pushbot")
+@Autonomous(name="Blue_Auto_Two", group="Pushbot")
 //@Disabled
-public class Blue_Auto_One extends LinearOpMode {
+public class Blue_Auto_Two extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -106,7 +106,7 @@ public class Blue_Auto_One extends LinearOpMode {
         spinner.DuckSpinner.setPower(0.5);
         spinner.carouselDuck();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 3.5)) {
 
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -117,7 +117,7 @@ public class Blue_Auto_One extends LinearOpMode {
 
         sleep(2000);
 
-        MecDrive.drive = 0.0;
+        /*MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = -1.0;
         MecDrive.MecanumDrive();
@@ -126,18 +126,18 @@ public class Blue_Auto_One extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
-        }
-        MecDrive.drive = 1.0;
-        MecDrive.strafe = 0.0;
+        }*/
+        MecDrive.drive = 0.5;
+        MecDrive.strafe = -0.85;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
-        MecDrive.drive = 0.0;
+        /*MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 1.0;
         MecDrive.MecanumDrive();
@@ -205,7 +205,6 @@ public class Blue_Auto_One extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
-
+        */
     }
 }
