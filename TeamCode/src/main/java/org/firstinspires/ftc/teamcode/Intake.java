@@ -28,7 +28,7 @@ public class Intake {
         hwMap = ahwMap;
 
         intake = ahwMap.get(DcMotor.class, "intake");
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         intake.setPower(0);

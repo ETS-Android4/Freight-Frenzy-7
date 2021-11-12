@@ -103,7 +103,8 @@ public class Blue_Auto_One extends LinearOpMode {
         waitForStart();
 
         spinner.DuckArm.setPosition(1.0);
-        spinner.DuckSpinner.setPower(0.9);
+        spinner.DuckSpinner.setPower(0.5);
+        spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.0)) {
 
@@ -119,21 +120,24 @@ public class Blue_Auto_One extends LinearOpMode {
         MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = -1.0;
+        MecDrive.MecanumDrive();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
-        /**runtime.reset();
+        MecDrive.drive = 1.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-            MecDrive.drive = 1.0;
-            MecDrive.strafe = 0.0;
-            MecDrive.turn = 0.0;
+
         }
-        runtime.reset();
+         /**runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();

@@ -22,8 +22,10 @@ public class OpenCVWebcam2 {
     public int FinalTeamEleLoc;
     public HardwareMap hwMap = null;
     public Mat outPut = new Mat();
-    public Core.MinMaxLocResult LeftMax;
-    public Core.MinMaxLocResult RightMax;
+    public double LeftMax;
+    public double RightMax;
+    public double AdjustedThreshold;
+    public static final double UnadjustedThreshold = 230;
 
     //private variables
 
@@ -46,11 +48,11 @@ public class OpenCVWebcam2 {
     private double FinaLeftAverageR;
     private double FinalRightAverageR;
     private Scalar RightAverageR;
-    private double AdjustedThreshold;
-    private static final double UnadjustedThreshold = 200;
     private Core.MinMaxLocResult GreenMinMax;
     private Mat InputGreenChannel = new Mat();
     private Mat QROutput = new Mat();
+    private Core.MinMaxLocResult LeftMinMax;
+    private Core.MinMaxLocResult RightMinMax;
 
     /* Constructor */
     public OpenCVWebcam2() {
@@ -131,8 +133,11 @@ public class OpenCVWebcam2 {
             Core.extractChannel(LeftCrop, LeftCrop, 1);
             Core.extractChannel(RightCrop, RightCrop, 1);
 
-            LeftMax = Core.minMaxLoc(LeftCrop);
-            RightMax = Core.minMaxLoc(RightCrop);
+            LeftMinMax = Core.minMaxLoc(LeftCrop);
+            RightMinMax = Core.minMaxLoc(RightCrop);
+
+            LeftMax = LeftMinMax.maxVal;
+            RightMax = RightMinMax.maxVal;
 
             Core.extractChannel(input, InputGreenChannel, 1);
 
@@ -140,8 +145,8 @@ public class OpenCVWebcam2 {
             AdjustedThreshold = UnadjustedThreshold * (GreenMinMax.maxVal / 255.0);
 
             //QR Code detection
-            QRCodeDetector QR = new QRCodeDetector();
-            QR.detect(input, QROutput);
+            //QRCodeDetector QR = new QRCodeDetector();
+            //QR.detect(input, QROutput);
 
             //points for drawing two vertical lines to split the viewing area into thirds
             Point LeftLineTop = new Point(input.size().width / 3,  0 );
@@ -154,14 +159,15 @@ public class OpenCVWebcam2 {
             Imgproc.line(outPut, RightLineTop, RightLineBottom, new Scalar (0,0,0));
 
             //draw lines to form rectangle around QR code
-            for (int i = 0; i < QROutput.cols(); i++) {
-                Point pt1 = new Point(QROutput.get(0, i));
-                Point pt2 = new Point(QROutput.get(0, (i + 1) % 4));
-                Imgproc.line(outPut, pt1, pt2, new Scalar(255, 0, 0), 3);
-            }
 
+                //for (int i = 0; i < QROutput.cols(); i++) {
+                  //  Point pt1 = new Point(QROutput.get(0, i));
+                   // Point pt2 = new Point(QROutput.get(0, (i + 1) % 4));
+                   // Imgproc.line(outPut, pt1, pt2, new Scalar(255, 0, 0), 3);
+               // }
+            //}
             //top left corner of QR code can be used for TeamEleLoc update if this works
-            double[] TopLeftQRCodePoint = QROutput.get(0, 0);
+            //double[] TopLeftQRCodePoint = QROutput.get(0, 0);
 
 //            if (TopLeftQRCodePoint[0] < input.size().width / 3){
 //                TeamEleLoc = 0;
@@ -173,16 +179,16 @@ public class OpenCVWebcam2 {
 //                TeamEleLoc = 2;
 //            }
 
-            if (LeftMax != null && LeftMax.maxVal < AdjustedThreshold && RightMax != null && RightMax.maxVal < AdjustedThreshold) {
+            if (LeftMax < AdjustedThreshold && RightMax < AdjustedThreshold) {
                 //team element = left
                 TeamEleLoc = 0;
             }
 
-            if (LeftMax != null && LeftMax.maxVal > AdjustedThreshold){
+            if (LeftMax > AdjustedThreshold){
                 //team element = center
                 TeamEleLoc = 1;
             }
-            if (RightMax != null && RightMax.maxVal > AdjustedThreshold){
+            if (RightMax > AdjustedThreshold){
                 //team element = right
                 TeamEleLoc = 2;
             }

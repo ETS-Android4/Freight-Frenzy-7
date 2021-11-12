@@ -44,10 +44,11 @@ public class Lift {
 
     public void ManualLift() {
             Lift.setPower(elevator * MaxPower);
-            //liftPosition = Lift.getCurrentPosition();
-            //telemetry.addData("Lift Position" , liftPosition);
-            //telemetry.update();
-        }
+            liftPosition = Lift.getCurrentPosition();
+        //  18-36 lowest position
+        //  -469 middle position?
+        //  -1000 top position?
+                }
         //Autolift Math
         /*public void Autolift(){
 

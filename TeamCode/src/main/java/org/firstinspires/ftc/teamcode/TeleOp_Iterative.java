@@ -134,7 +134,8 @@ public class TeleOp_Iterative extends OpMode
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
-
+        telemetry.addData("Lift Position" , lift.liftPosition);
+        telemetry.update();
         //
         /**liftPosition = Lift.getCurrentPosition();
         telemetry.addData("Lift Position" , liftPosition);
