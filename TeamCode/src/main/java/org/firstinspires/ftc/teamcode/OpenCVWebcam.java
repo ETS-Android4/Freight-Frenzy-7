@@ -39,7 +39,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 @TeleOp(name="Webcam", group="OpMode")
 public class OpenCVWebcam extends LinearOpMode
 {
-    OpenCvCamera webcam;
+    //public varibles
+    public OpenCvCamera webcam;
+    public int TeamEleLoc;
+
+
 
     @Override
     public void runOpMode()

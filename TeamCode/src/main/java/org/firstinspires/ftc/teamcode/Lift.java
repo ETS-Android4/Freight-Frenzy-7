@@ -44,9 +44,9 @@ public class Lift {
 
     public void ManualLift() {
             Lift.setPower(elevator * MaxPower);
-            liftPosition = Lift.getCurrentPosition();
-            telemetry.addData("Lift Position" , liftPosition);
-            telemetry.update();
+            //liftPosition = Lift.getCurrentPosition();
+            //telemetry.addData("Lift Position" , liftPosition);
+            //telemetry.update();
         }
 
         //Autolift Math

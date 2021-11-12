@@ -63,6 +63,7 @@ public class TeleOp_Iterative extends OpMode
     Lift lift = new Lift();
 
 
+
     //private double Drive = 0;
     //private double Strafe = 0;
     //private double Turn = 0;
@@ -78,6 +79,7 @@ public class TeleOp_Iterative extends OpMode
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
+
 
 
 
@@ -106,18 +108,20 @@ public class TeleOp_Iterative extends OpMode
     @Override
     public void loop() {
         // GamePad Inputs
-        MecDrive.drive = -gamepad1.left_stick_y;
-        MecDrive.strafe = gamepad1.left_stick_x;
-        MecDrive.turn  =  gamepad1.right_stick_x;
+        MecDrive.drive = -gamepad1.left_stick_y; //-1.0 to 1.0
+        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0
+        MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
         intake.PickUp = gamepad2.right_bumper;
         intake.Drop = gamepad2.left_bumper;
+        intake.stopIntake = gamepad2.dpad_down;
 
         spinner.armOut = gamepad2.a;
         spinner.armIn = gamepad2.b;
         spinner.duckSpinner = gamepad2.x;
+        spinner.stopSpinner = gamepad2.y;
 
-        lift.elevator = -gamepad2.right_stick_y;
+        lift.elevator = gamepad2.right_stick_y;
 
         //  Robot Functions
 
@@ -130,6 +134,12 @@ public class TeleOp_Iterative extends OpMode
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
+
+        //
+        /**liftPosition = Lift.getCurrentPosition();
+        telemetry.addData("Lift Position" , liftPosition);
+        telemetry.update();
+         */
     }
 
     /*
