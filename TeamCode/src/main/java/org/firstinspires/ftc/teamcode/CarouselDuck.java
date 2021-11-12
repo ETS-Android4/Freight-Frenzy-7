@@ -43,10 +43,10 @@ public class CarouselDuck {
     public boolean armIn;
     public boolean duckSpinner;
     public boolean stopSpinner;
+    public double spinnerPower = 1;
+    public double rest =  0.0;
+    public double arm = 1;
 
-    public static final double rest =  0.5 ;
-    private final double arm = 0.25;
-    private final double spinnerPower = 1;
 
 
     /* local OpMode members. */

@@ -67,9 +67,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_One", group="Pushbot")
+@Autonomous(name="Blue_Auto Duck & Park", group="Pushbot")
 //@Disabled
-public class Blue_Auto_One extends LinearOpMode {
+public class Blue_Auto_Duck_and_Park extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
