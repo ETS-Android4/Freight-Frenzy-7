@@ -92,7 +92,7 @@ public class Blue_Auto_One extends LinearOpMode {
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
 
-        Vision.init(hardwareMap);
+       // Vision.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -102,27 +102,30 @@ public class Blue_Auto_One extends LinearOpMode {
 
         waitForStart();
 
+        spinner.DuckArm.setPosition(1.0);
+        spinner.DuckSpinner.setPower(0.9);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            spinner.DuckArm.setPosition(1.0);
-            spinner.DuckSpinner.setPower(1.0);
+
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
+
         }
         spinner.stopSpinner = true;
         spinner.DuckArm.setPosition(spinner.rest);
 
-        sleep(2000);
+        //sleep(2000);
 
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = -1.0;
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-            MecDrive.drive = 0.0;
-            MecDrive.strafe = 0.0;
-            MecDrive.turn = -1.0;
+
         }
-        runtime.reset();
+        /**runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -189,5 +192,6 @@ public class Blue_Auto_One extends LinearOpMode {
             MecDrive.turn = 0.0;
         }
 
+    }*/
     }
 }
