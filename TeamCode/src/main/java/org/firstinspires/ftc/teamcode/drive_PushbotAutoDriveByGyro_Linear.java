@@ -68,7 +68,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Gyro", group="Pushbot")
+@Autonomous(name="Pushbot: Auto Drive By Gyro2", group="Pushbot")
 //@Disabled
 public class drive_PushbotAutoDriveByGyro_Linear extends LinearOpMode {
 

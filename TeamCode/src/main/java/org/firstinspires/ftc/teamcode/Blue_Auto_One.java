@@ -112,6 +112,82 @@ public class Blue_Auto_One extends LinearOpMode {
         spinner.stopSpinner = true;
         spinner.DuckArm.setPosition(spinner.rest);
 
+        sleep(2000);
+
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.25)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 0.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = -1.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 1.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = 0.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 0.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = 1.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 1.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = 0.0;
+        }
+
+        //lift.elevator = 1.0;
+        //lift.liftPosition = *low; //camera value
+
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            intake.Drop = true;
+        }
+        intake.stopIntake = true;
+
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = -1.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = 0.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 0.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = -1.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 0.0;
+            MecDrive.strafe = -1.0;
+            MecDrive.turn = 0.0;
+        }
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+            MecDrive.drive = 1.0;
+            MecDrive.strafe = 0.0;
+            MecDrive.turn = 0.0;
+        }
 
     }
 }
