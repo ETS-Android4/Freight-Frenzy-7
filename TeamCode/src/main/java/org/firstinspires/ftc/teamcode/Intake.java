@@ -11,12 +11,13 @@ public class Intake {
     public DcMotor intake;
     HardwareMap hwMap = null;
     public boolean stopIntake;
+    public boolean reverse;
 
     //private variables
-    //banana
+
     private final double inPower = 1;
     private final double outPower = .65;
-
+    private final double reverseIntake = -1;
     /* Constructor */
     public Intake() {
 
@@ -45,6 +46,9 @@ public class Intake {
         }
         if (stopIntake) {
             intake.setPower(0);
+        }
+        if (reverse) {
+            intake.setPower(reverseIntake);
         }
     }
 }

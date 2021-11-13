@@ -17,12 +17,16 @@ public class Lift {
     public int liftPosition;
     HardwareMap hwMap = null;
     public double elevator = 0;
+    public boolean elevatorLow;
+    public boolean elevatorMid;
+    public boolean elevatorHigh;
+    public final double MaxPower = 0.5;
 
-    private final double low = 2;
-    private final double mid = 4;
-    private final double high = 6;
-    private final double mult = 537.7;
-    private final double MaxPower = 0.5;
+    private final int low = 0;
+    private final int mid = -450;
+    private final int high = -1000;
+    private final int mult = 538;
+
 
 
     /* Constructor */
@@ -39,23 +43,35 @@ public class Lift {
 
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         Lift.setPower(0);
     }
 
     public void ManualLift() {
-            Lift.setPower(elevator * MaxPower);
+            Lift.setPower(MaxPower);
             liftPosition = Lift.getCurrentPosition();
         //  18-36 lowest position
+            if (elevatorLow) {
+                Lift.setTargetPosition(low);
+                Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+        if (elevatorMid){
+            Lift.setTargetPosition(mid);
+            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (elevatorHigh){
+            Lift.setTargetPosition(high);
+            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
         //  -469 middle position?
         //  -1000 top position?
-                }
-        //Autolift Math
-        /*public void Autolift(){
 
-            liftPosition.this =  (low * mult);
-        }
 
-         */
+    }
+
 }
 
 

@@ -128,11 +128,11 @@ public class Blue_Auto_Two extends LinearOpMode {
 
         }*/
         MecDrive.drive = 0.5;
-        MecDrive.strafe = -0.85;
+        MecDrive.strafe = -0.75;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.75)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
