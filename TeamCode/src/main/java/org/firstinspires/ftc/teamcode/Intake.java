@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Intake {
 
@@ -12,12 +13,14 @@ public class Intake {
     HardwareMap hwMap = null;
     public boolean stopIntake;
     public boolean reverse;
-
+    public boolean freightCatch;
+    public Servo freightStop;
     //private variables
 
     private final double inPower = 1;
     private final double outPower = .65;
     private final double reverseIntake = -1;
+    private final double catchFreight = 0.5;
     /* Constructor */
     public Intake() {
 
@@ -50,5 +53,7 @@ public class Intake {
         if (reverse) {
             intake.setPower(reverseIntake);
         }
+        if (freightCatch)
+            freightStop.setPosition(catchFreight);
     }
 }

@@ -116,6 +116,7 @@ public class TeleOp_Iterative extends OpMode
         intake.Drop = gamepad2.left_bumper;
         intake.stopIntake = gamepad2.dpad_down;
         intake.reverse = gamepad2.dpad_up;
+        intake.freightCatch = gamepad2.x;
 
         spinner.armOut = gamepad1.a;
         spinner.armIn = gamepad1.b;
