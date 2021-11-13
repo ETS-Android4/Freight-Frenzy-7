@@ -42,6 +42,7 @@ public class CarouselDuck {
     public boolean armOut;
     public boolean armIn;
     public boolean duckSpinner;
+    public boolean duckSpinnerRev;
     public boolean stopSpinner;
     public double spinnerPower = 1;
     public double rest =  0.0;
@@ -82,6 +83,9 @@ public class CarouselDuck {
         }
         if (duckSpinner) {
             DuckSpinner.setPower(spinnerPower);
+        }
+        if (duckSpinnerRev) {
+            DuckSpinner.setPower(-spinnerPower);
         }
         if (stopSpinner) {
             DuckSpinner.setPower(0);

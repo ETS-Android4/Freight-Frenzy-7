@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp (name= "PushButton", group= "Practice")
-
+@Disabled
 
 public class PushButtonPractice extends OpMode {
 

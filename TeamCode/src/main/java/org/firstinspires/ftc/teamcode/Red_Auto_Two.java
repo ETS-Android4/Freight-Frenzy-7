@@ -68,9 +68,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_Two", group="Pushbot")
+@Autonomous(name="Red_Auto_Two", group="Pushbot")
 //@Disabled
-public class Blue_Auto_Two extends LinearOpMode {
+public class Red_Auto_Two extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -94,7 +94,7 @@ public class Blue_Auto_Two extends LinearOpMode {
         spinner.init(hardwareMap);
 
        Vision.init(hardwareMap);
-
+        spinner.DuckArm.setPosition(spinner.arm);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 
@@ -116,9 +116,8 @@ public class Blue_Auto_Two extends LinearOpMode {
         telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
         telemetry.update();
 
-
-        spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(.7);
+        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckSpinner.setPower(-.7);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.5)) {
@@ -129,11 +128,11 @@ public class Blue_Auto_Two extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.arm);
 
 //angled strafe
         MecDrive.drive = 0.5;
-        MecDrive.strafe = -0.75;
+        MecDrive.strafe = 0.75;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
@@ -145,7 +144,7 @@ public class Blue_Auto_Two extends LinearOpMode {
  //turn to hub
         MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.2;
+        MecDrive.turn = -0.2;
         MecDrive.MecanumDrive();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.7)) {
@@ -204,10 +203,10 @@ public class Blue_Auto_Two extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-//turn left
+//turn right
         MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
-        MecDrive.turn = -.5;
+        MecDrive.turn = .5;
         MecDrive.MecanumDrive();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < .6)) {
@@ -216,7 +215,7 @@ public class Blue_Auto_Two extends LinearOpMode {
         }
 //strafe to the wall
         MecDrive.drive = 0.0;
-        MecDrive.strafe = -0.4;
+        MecDrive.strafe = 0.4;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();

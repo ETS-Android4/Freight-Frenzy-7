@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -68,9 +67,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_Two", group="Pushbot")
+@Autonomous(name="Red_Auto Duck & Park", group="Pushbot")
 //@Disabled
-public class Blue_Auto_Two extends LinearOpMode {
+public class Red_Auto_Duck_and_Park extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -92,8 +91,9 @@ public class Blue_Auto_Two extends LinearOpMode {
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
+        spinner.DuckArm.setPosition(spinner.arm);
 
-       Vision.init(hardwareMap);
+       // Vision.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -101,141 +101,75 @@ public class Blue_Auto_Two extends LinearOpMode {
         telemetry.addData(">", "Robot Ready.");
         telemetry.update();
 
-        while (!isStarted()) {
-            //telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
-            telemetry.addData("left square green channel", Vision.LeftMax);
-            telemetry.addData("middle square green channel", Vision.MiddleMax);
-            telemetry.addData("right square green channel", Vision.RightMax);
-            //telemetry.addData("Adjusted Threshold", Vision.AdjustedThreshold);
-            //telemetry.addData("Unadjusted Threshold", Vision.UnadjustedThreshold);
-            telemetry.addData("Team Element Location", Vision.TeamEleLoc);
-            telemetry.update();
-            Vision.FinalTeamEleLoc = Vision.TeamEleLoc;
-        }
-        Vision.webcam.stopStreaming();
-        telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
-        telemetry.update();
+        waitForStart();
 
-
-        spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(.7);
+        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckSpinner.setPower(-0.5);
         spinner.carouselDuck();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
 
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
-        //spinner.stopSpinner = true;
-        spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.stopSpinner = true;
+        spinner.DuckArm.setPosition(spinner.arm);
 
-//angled strafe
-        MecDrive.drive = 0.5;
-        MecDrive.strafe = -0.75;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+        sleep(2000);
 
-        }
- //turn to hub
         MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.2;
+        MecDrive.turn = 1.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.25)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+
+        }
+        MecDrive.drive = 1.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.75)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+
+        }
+        /**MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 1.0;
+        MecDrive.MecanumDrive();
+        //runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+
+        }
+        MecDrive.drive = 1.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
 
-//lift by vision
-        lift.ManualLift();
-        if (Vision.FinalTeamEleLoc == 0) {
-            lift.Lift.setTargetPosition(lift.low);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 1) {
-            lift.Lift.setTargetPosition(lift.mid);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 2) {
-            lift.Lift.setTargetPosition(lift.high);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        //lift.elevator = 1.0;
+        //lift.liftPosition = *low; //camera value
 
-//go forward
-        MecDrive.drive = 0.4;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .75)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-
-//drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
-            //intake.Drop = true;
-            intake.intake.setPower(.65);
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            intake.Drop = true;
         }
-        //intake.stopIntake = true;
-        intake.intake.setPower(0);
+        intake.stopIntake = true;
 
-//going backwards
-        MecDrive.drive = -0.4;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.1)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-//turn left
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = -.5;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .6)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-//strafe to the wall
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = -0.4;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-//drive to warehouse
-
-        MecDrive.drive = .6;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.8)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        /*MecDrive.drive = -1.0;
+        MecDrive.drive = -1.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
@@ -272,6 +206,7 @@ public class Blue_Auto_Two extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        */
+
+    }*/
     }
 }

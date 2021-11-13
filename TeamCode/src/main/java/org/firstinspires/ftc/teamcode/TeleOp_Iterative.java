@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="TeleOp Mode", group="Iterative Opmode")
 //@Disabled
 public class TeleOp_Iterative extends OpMode
 {
@@ -119,7 +119,8 @@ public class TeleOp_Iterative extends OpMode
 
         spinner.armOut = gamepad1.a;
         spinner.armIn = gamepad1.b;
-        spinner.duckSpinner = gamepad1.x;
+        spinner.duckSpinner = gamepad1.right_bumper;
+        spinner.duckSpinnerRev = gamepad1.left_bumper;
         spinner.stopSpinner = gamepad1.y;
 
         lift.elevator = (gamepad2.right_stick_y * lift.MaxPower);
