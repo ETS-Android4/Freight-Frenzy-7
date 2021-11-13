@@ -130,9 +130,10 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
         while (!isStarted()) {
             //telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
             telemetry.addData("left square green channel", Vision.LeftMax);
+            telemetry.addData("middle square green channel", Vision.MiddleMax);
             telemetry.addData("right square green channel", Vision.RightMax);
-            telemetry.addData("Adjusted Threshold", Vision.AdjustedThreshold);
-            telemetry.addData("Unadjusted Threshold", Vision.UnadjustedThreshold);
+            //telemetry.addData("Adjusted Threshold", Vision.AdjustedThreshold);
+            //telemetry.addData("Unadjusted Threshold", Vision.UnadjustedThreshold);
             telemetry.addData("Team Element Location", Vision.TeamEleLoc);
             telemetry.update();
             Vision.FinalTeamEleLoc = Vision.TeamEleLoc;

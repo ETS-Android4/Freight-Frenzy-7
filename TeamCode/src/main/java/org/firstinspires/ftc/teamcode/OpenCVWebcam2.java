@@ -23,35 +23,41 @@ public class OpenCVWebcam2 {
     public HardwareMap hwMap = null;
     public Mat outPut = new Mat();
     public double LeftMax;
+    public double MiddleMax;
     public double RightMax;
     public double AdjustedThreshold;
-    public static final double UnadjustedThreshold = 230;
+    public static final double UnadjustedThreshold = 210;
 
     //private variables
 
-    private final int RectLX = 20;
-    private final int RectRX = 160;
+    private final int RectLX = 5;
     private final int RectLY = 150;
+    private final int RectMX = 113;
+    private final int RectMY = 150;
+    private final int RectRX = 230;
     private final int RectRY = 150;
-    private final int RectLwidth = 60;
-    private final int RectLheight = 60;
-    private final int RectRwidth = 60;
-    private final int RectRheight = 60;
+
+    private final int RectLwidth = 85;
+    private final int RectLheight = 85;
+    private final int RectMwidth = 102;
+    private final int RectMheight = 85;
+    private final int RectRwidth = 80;
+    private final int RectRheight = 85;
 
     private final  Rect rectL = new Rect(RectLX, RectLY, RectLwidth, RectLheight);
+    private final Rect rectM = new Rect(RectMX, RectMY, RectMwidth, RectMheight);
     private final Rect rectR = new Rect(RectRX, RectRY, RectRwidth, RectRheight);
     private final Scalar rectanglecolor = new Scalar(0, 0, 0);
 
     private Mat LeftCrop = new Mat();
+    private Mat MiddleCrop = new Mat();
     private Mat RightCrop = new Mat();
-    private Scalar LeftAverageR;
-    private double FinaLeftAverageR;
-    private double FinalRightAverageR;
-    private Scalar RightAverageR;
-    private Core.MinMaxLocResult GreenMinMax;
-    private Mat InputGreenChannel = new Mat();
-    private Mat QROutput = new Mat();
+
+    //private Core.MinMaxLocResult GreenMinMax;
+    //private Mat InputGreenChannel = new Mat();
+    //private Mat QROutput = new Mat();
     private Core.MinMaxLocResult LeftMinMax;
+    private Core.MinMaxLocResult MiddleMinMax;
     private Core.MinMaxLocResult RightMinMax;
 
     /* Constructor */
@@ -86,77 +92,49 @@ public class OpenCVWebcam2 {
         @Override
         public Mat processFrame(Mat input)
         {
-           /* input.copyTo(outPut);
 
-            Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
-            Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
-            LeftCrop = input.submat(rectL);
-            RightCrop = input.submat(rectR);
-
-            // channel 1 = green
-
-            Core.extractChannel(LeftCrop, LeftCrop, 1);
-            Core.extractChannel(RightCrop, RightCrop, 1);
-
-            LeftAverageR = Core.mean(LeftCrop);
-            FinaLeftAverageR = LeftAverageR.val[0];
-
-            RightAverageR = Core.mean(RightCrop);
-            FinalRightAverageR = RightAverageR.val[0];
-
-            if (FinalRightAverageR < 150 && FinaLeftAverageR < 150) {
-                //team element = left
-                TeamEleLoc = 0;
-            }
-
-            if (FinaLeftAverageR > 150){
-                //team element = center
-                TeamEleLoc = 1;
-            }
-            if (FinalRightAverageR > 150){
-                //team element = right
-                TeamEleLoc = 2;
-            }
-
-
-            return outPut;
-*/
             input.copyTo(outPut);
 
+
+            //Draw Three Rectangles
             Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
+            Imgproc.rectangle(outPut, rectM, rectanglecolor, 2);
             Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
             LeftCrop = input.submat(rectL);
+            MiddleCrop = input.submat(rectM);
             RightCrop = input.submat(rectR);
 
             // channel 1 = green
 
             Core.extractChannel(LeftCrop, LeftCrop, 1);
+            Core.extractChannel(MiddleCrop, MiddleCrop, 1);
             Core.extractChannel(RightCrop, RightCrop, 1);
 
             LeftMinMax = Core.minMaxLoc(LeftCrop);
+            MiddleMinMax = Core.minMaxLoc(MiddleCrop);
             RightMinMax = Core.minMaxLoc(RightCrop);
 
             LeftMax = LeftMinMax.maxVal;
+            MiddleMax = MiddleMinMax.maxVal;
             RightMax = RightMinMax.maxVal;
 
-            Core.extractChannel(input, InputGreenChannel, 1);
-
-            GreenMinMax = Core.minMaxLoc(InputGreenChannel);
-            AdjustedThreshold = UnadjustedThreshold * (GreenMinMax.maxVal / 255.0);
+            //Core.extractChannel(input, InputGreenChannel, 1);
+            //GreenMinMax = Core.minMaxLoc(InputGreenChannel);
+            //AdjustedThreshold = UnadjustedThreshold * (GreenMinMax.maxVal / 255.0);
 
             //QR Code detection
             //QRCodeDetector QR = new QRCodeDetector();
             //QR.detect(input, QROutput);
 
             //points for drawing two vertical lines to split the viewing area into thirds
-            Point LeftLineTop = new Point(input.size().width / 3,  0 );
-            Point LeftLineBottom = new Point (input.size().width / 3, input.size().height);
-            Point RightLineTop = new Point(2 * (input.size().width / 3),  0 );
-            Point RightLineBottom = new Point (2 * (input.size().width / 3), input.size().height);
+            //Point LeftLineTop = new Point(input.size().width / 3,  0 );
+          //  Point LeftLineBottom = new Point (input.size().width / 3, input.size().height);
+          //  Point RightLineTop = new Point(2 * (input.size().width / 3),  0 );
+        //    Point RightLineBottom = new Point (2 * (input.size().width / 3), input.size().height);
 
             //draws the two vertical lines on the viewing area
-            Imgproc.line(outPut, LeftLineTop, LeftLineBottom, new Scalar(0,0,0));
-            Imgproc.line(outPut, RightLineTop, RightLineBottom, new Scalar (0,0,0));
+          //  Imgproc.line(outPut, LeftLineTop, LeftLineBottom, new Scalar(0,0,0));
+            //Imgproc.line(outPut, RightLineTop, RightLineBottom, new Scalar (0,0,0));
 
             //draw lines to form rectangle around QR code
 
@@ -178,8 +156,7 @@ public class OpenCVWebcam2 {
 //            else {
 //                TeamEleLoc = 2;
 //            }
-
-            if (LeftMax < AdjustedThreshold && RightMax < AdjustedThreshold) {
+/**            if (LeftMax < AdjustedThreshold && RightMax < AdjustedThreshold) {
                 //team element = left
                 TeamEleLoc = 0;
             }
@@ -192,11 +169,28 @@ public class OpenCVWebcam2 {
                 //team element = right
                 TeamEleLoc = 2;
             }
+*/
+
+            if (LeftMax > MiddleMax && LeftMax > RightMax){
+            // team element = left
+            TeamEleLoc = 0;
+             }
+
+            if (MiddleMax > LeftMax && MiddleMax > RightMax){
+                // team element = Middle
+                TeamEleLoc = 1;
+            }
+
+            if (RightMax > MiddleMax && RightMax > LeftMax){
+                // team element = Right
+                TeamEleLoc = 2;
+            }
 
             return outPut;
             // write crop code for third square
             // write two square method code for comparing two of the squares
             // white three square method for determinng team element locationat highest value of three squares
+
         }
 
         @Override
