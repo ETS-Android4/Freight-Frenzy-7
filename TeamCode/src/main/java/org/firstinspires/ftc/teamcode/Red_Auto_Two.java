@@ -94,7 +94,7 @@ public class Red_Auto_Two extends LinearOpMode {
         spinner.init(hardwareMap);
 
        Vision.init(hardwareMap);
-        spinner.DuckArm.setPosition(spinner.arm);
+
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 

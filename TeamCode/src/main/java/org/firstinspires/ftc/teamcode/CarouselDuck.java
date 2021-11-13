@@ -68,7 +68,7 @@ public class CarouselDuck {
         // Define and initialize ALL installed servos.
         DuckArm  = hwMap.get(Servo.class, "DuckArm");
         DuckSpinner = hwMap.get(DcMotor.class, "Spinner");
-        DuckArm.setPosition(rest);
+
         DuckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
         DuckSpinner.setPower(0);
 

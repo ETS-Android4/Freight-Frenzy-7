@@ -32,8 +32,9 @@ public class Intake {
         hwMap = ahwMap;
 
         intake = ahwMap.get(DcMotor.class, "intake");
+        freightStop = hwMap.get(Servo.class, "fStop");
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
-
+        freightStop.setPosition(0);
 
         intake.setPower(0);
     }
@@ -46,6 +47,7 @@ public class Intake {
         if (Drop) {
 
             intake.setPower(outPower);
+            freightStop.setPosition(0);
         }
         if (stopIntake) {
             intake.setPower(0);

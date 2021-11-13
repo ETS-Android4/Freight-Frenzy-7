@@ -22,7 +22,7 @@ public class Lift {
     public boolean elevatorHigh;
     public final double MaxPower = 0.5;
 
-    public final int low = 0;
+    public final int low = -50;
     public final int mid = -450;
     public final int high = -1000;
     private final int mult = 538;
