@@ -20,12 +20,14 @@ public class Lift {
     public boolean elevatorLow;
     public boolean elevatorMid;
     public boolean elevatorHigh;
+
     public final double MaxPower = 0.5;
 
-    public final int low = -50;
+    public final int low = -20;
     public final int mid = -450;
     public final int high = -1000;
     private final int mult = 538;
+    public final int increment = 30;
 
 
 
@@ -71,6 +73,33 @@ public class Lift {
 
 
     }
+
+    public void LiftStepDown() {
+
+        int targetPosition = Lift.getCurrentPosition() + increment;
+        if (targetPosition > -20){
+            targetPosition = -20;
+        }
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+    }
+
+    public void LiftStepUp() {
+
+        int targetPosition = Lift.getCurrentPosition() - increment;
+        if (targetPosition < -1000){
+            targetPosition = -1000;
+        }
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+    }
+
 
 }
 

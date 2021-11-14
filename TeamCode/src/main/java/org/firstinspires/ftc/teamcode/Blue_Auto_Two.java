@@ -131,6 +131,8 @@ public class Blue_Auto_Two extends LinearOpMode {
         spinner.DuckSpinner.setPower(0);
         spinner.DuckArm.setPosition(spinner.rest);
 
+        sleep(2000);
+
 //angled strafe
         MecDrive.drive = 0.5;
         MecDrive.strafe = -0.75;
@@ -272,6 +274,6 @@ public class Blue_Auto_Two extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        */
+*/
     }
 }

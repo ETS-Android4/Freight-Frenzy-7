@@ -116,7 +116,7 @@ public class Red_Auto_Two extends LinearOpMode {
         telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
         telemetry.update();
 
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.rest); //was spinner.arm
         spinner.DuckSpinner.setPower(-.7);
         spinner.carouselDuck();
         runtime.reset();
@@ -128,7 +128,9 @@ public class Red_Auto_Two extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.arm);
+        spinner.DuckArm.setPosition(spinner.rest);
+
+        sleep(2000);
 
 //angled strafe
         MecDrive.drive = 0.5;

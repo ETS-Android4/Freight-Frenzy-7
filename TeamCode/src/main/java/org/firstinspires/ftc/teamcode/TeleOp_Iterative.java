@@ -62,7 +62,9 @@ public class TeleOp_Iterative extends OpMode
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
 
-
+    boolean aPrev = false;
+    boolean dpdPrev = false;
+    boolean dpuPrev = false;
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -124,7 +126,21 @@ public class TeleOp_Iterative extends OpMode
         spinner.duckSpinnerRev = gamepad1.left_bumper;
         spinner.stopSpinner = gamepad1.y;
 
-        lift.elevator = (gamepad2.right_stick_y * lift.MaxPower);
+
+       /* if(gamepad2.dpad_down && !dpdPrev) {
+            lift.LiftStepDown();
+        }
+        dpdPrev = gamepad2.dpad_down;
+
+        if(gamepad2.dpad_up && !dpuPrev) {
+            lift.LiftStepUp();
+        }
+        dpuPrev = gamepad2.dpad_up;*/
+
+
+        //if (gamepad2.a && !aPrev) {
+        //    lift.elevatorLow = gamepad2.a;
+        //}
         lift.elevatorLow = gamepad2.a;
         lift.elevatorMid = gamepad2.b;
         lift.elevatorHigh = gamepad2.y;
@@ -135,6 +151,7 @@ public class TeleOp_Iterative extends OpMode
         intake.intake();
         spinner.carouselDuck();
         lift.ManualLift();
+
 
 
         // Show the elapsed game time and wheel power.
