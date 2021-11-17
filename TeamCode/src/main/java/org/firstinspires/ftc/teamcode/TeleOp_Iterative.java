@@ -114,17 +114,17 @@ public class TeleOp_Iterative extends OpMode
         MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0
         MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
-        intake.PickUp = gamepad2.right_bumper;
-        intake.Drop = gamepad2.left_bumper;
-        intake.stopIntake = gamepad2.dpad_down;
-        intake.reverse = gamepad2.dpad_up;
+        intake.PickUp = gamepad2.right_bumper; //intake toggle
+        intake.Drop = gamepad2.left_bumper; // out_take toggle
+        intake.stopIntake = gamepad2.dpad_down; // remove
+        intake.reverse = gamepad2.dpad_up; //toggle
         intake.freightCatch = gamepad2.x;
 
         spinner.armOut = gamepad1.a;
         spinner.armIn = gamepad1.b;
-        spinner.duckSpinner = gamepad1.right_bumper;
-        spinner.duckSpinnerRev = gamepad1.left_bumper;
-        spinner.stopSpinner = gamepad1.y;
+        spinner.duckSpinner = gamepad1.right_bumper; //toggle
+        spinner.duckSpinnerRev = gamepad1.left_bumper; //toggle
+        spinner.stopSpinner = gamepad1.y; //remove
 
 
        /* if(gamepad2.dpad_down && !dpdPrev) {
