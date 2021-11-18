@@ -62,9 +62,13 @@ public class TeleOp_Iterative extends OpMode
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
 
-    boolean aPrev = false;
-    boolean dpdPrev = false;
-    boolean dpuPrev = false;
+    boolean dpd2 = false;
+    boolean dpu2 = false;
+    boolean right_bumper2 = false;
+    boolean left_bumper2 = false;
+    boolean dpl2 = false;
+    boolean right_bumper1 = false;
+    boolean left_bumper1 = false;
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -111,36 +115,61 @@ public class TeleOp_Iterative extends OpMode
     public void loop() {
         // GamePad Inputs
         MecDrive.drive = -gamepad1.left_stick_y; //-1.0 to 1.0
-        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0
+        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
         MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
-        intake.PickUp = gamepad2.right_bumper; //intake toggle
-        intake.Drop = gamepad2.left_bumper; // out_take toggle
-        intake.stopIntake = gamepad2.dpad_down; // remove
-        intake.reverse = gamepad2.dpad_up; //toggle
+
+        //intake toggle
+        if(gamepad2.right_bumper && !right_bumper2){
+            intake.PickUp = gamepad2.right_bumper;
+        }
+        right_bumper2 = gamepad2.right_bumper;
+
+        //outtake toggle
+        if(gamepad2.left_bumper && !left_bumper2){
+            intake.Drop = gamepad2.left_bumper;
+        }
+        left_bumper2 = gamepad2.left_bumper;
+
+        //reverse intake toggle
+        if(gamepad2.dpad_left && !dpl2){
+            intake.reverse = gamepad2.dpad_up; //toggle
+        }
+        dpl2 = gamepad2.dpad_left;
+
+       //freight Catch servo
         intake.freightCatch = gamepad2.x;
 
+        //arm position servo
         spinner.armOut = gamepad1.a;
         spinner.armIn = gamepad1.b;
-        spinner.duckSpinner = gamepad1.right_bumper; //toggle
-        spinner.duckSpinnerRev = gamepad1.left_bumper; //toggle
-        spinner.stopSpinner = gamepad1.y; //remove
+
+        //spin ducks
+        if (gamepad1.right_bumper && !right_bumper1){
+            spinner.duckSpinner = gamepad1.right_bumper; //toggle
+        }
+        right_bumper1 = gamepad1.right_bumper;
+
+        //spin ducks reverse
+        if (gamepad1.left_bumper && !left_bumper1){
+            spinner.duckSpinnerRev = gamepad1.left_bumper;
+        }
+        left_bumper1 = gamepad1.left_bumper;
 
 
-       /* if(gamepad2.dpad_down && !dpdPrev) {
+        //lift backup controls
+        if(gamepad2.dpad_down && !dpd2) {
             lift.LiftStepDown();
         }
-        dpdPrev = gamepad2.dpad_down;
+        dpd2 = gamepad2.dpad_down;
 
-        if(gamepad2.dpad_up && !dpuPrev) {
+        if(gamepad2.dpad_up && !dpu2) {
             lift.LiftStepUp();
         }
-        dpuPrev = gamepad2.dpad_up;*/
+        dpu2 = gamepad2.dpad_up;
 
 
-        //if (gamepad2.a && !aPrev) {
-        //    lift.elevatorLow = gamepad2.a;
-        //}
+      //lift positions
         lift.elevatorLow = gamepad2.a;
         lift.elevatorMid = gamepad2.b;
         lift.elevatorHigh = gamepad2.y;
