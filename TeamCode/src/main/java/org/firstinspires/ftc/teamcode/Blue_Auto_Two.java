@@ -237,43 +237,5 @@ public class Blue_Auto_Two extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        /*MecDrive.drive = -1.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = -1.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-
-        }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = -1.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        MecDrive.drive = 1.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-*/
     }
 }
