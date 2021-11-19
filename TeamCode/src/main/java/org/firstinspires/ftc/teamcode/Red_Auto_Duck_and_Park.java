@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -68,9 +67,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_One", group="Pushbot")
-@Disabled
-public class Blue_Auto_One extends LinearOpMode {
+@Autonomous(name="Red_Auto Duck & Park", group="Pushbot")
+//@Disabled
+public class Red_Auto_Duck_and_Park extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -92,6 +91,7 @@ public class Blue_Auto_One extends LinearOpMode {
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
+        spinner.DuckArm.setPosition(spinner.arm);
 
        // Vision.init(hardwareMap);
 
@@ -103,8 +103,8 @@ public class Blue_Auto_One extends LinearOpMode {
 
         waitForStart();
 
-        spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(0.5);
+        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckSpinner.setPower(-0.5);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.0)) {
@@ -114,13 +114,13 @@ public class Blue_Auto_One extends LinearOpMode {
 
         }
         spinner.stopSpinner = true;
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         sleep(2000);
 
         MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
-        MecDrive.turn = -1.0;
+        MecDrive.turn = 1.0;
         MecDrive.MecanumDrive();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.25)) {
@@ -133,12 +133,12 @@ public class Blue_Auto_One extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.75)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
-        MecDrive.drive = 0.0;
+        /**MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 1.0;
         MecDrive.MecanumDrive();
@@ -207,6 +207,6 @@ public class Blue_Auto_One extends LinearOpMode {
             telemetry.update();
         }
 
-
+    }*/
     }
 }

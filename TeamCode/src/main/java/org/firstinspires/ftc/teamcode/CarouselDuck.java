@@ -42,11 +42,13 @@ public class CarouselDuck {
     public boolean armOut;
     public boolean armIn;
     public boolean duckSpinner;
+    public boolean duckSpinnerRev;
     public boolean stopSpinner;
+    public double spinnerPower = 1;
+    public double rest =  0.0;
+    public double arm = 1;
 
-    public static final double rest =  0.5 ;
-    private final double arm = 0.25;
-    private final double spinnerPower = 1;
+
 
 
     /* local OpMode members. */
@@ -66,7 +68,7 @@ public class CarouselDuck {
         // Define and initialize ALL installed servos.
         DuckArm  = hwMap.get(Servo.class, "DuckArm");
         DuckSpinner = hwMap.get(DcMotor.class, "Spinner");
-        DuckArm.setPosition(rest);
+
         DuckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
         DuckSpinner.setPower(0);
 
@@ -83,9 +85,12 @@ public class CarouselDuck {
         if (duckSpinner) {
             DuckSpinner.setPower(spinnerPower);
         }
-        if (stopSpinner) {
-            DuckSpinner.setPower(0);
+        if (duckSpinnerRev) {
+            DuckSpinner.setPower(-spinnerPower);
         }
+        /*if (stopSpinner) {
+            DuckSpinner.setPower(0);
+        }*/
     }
  }
 

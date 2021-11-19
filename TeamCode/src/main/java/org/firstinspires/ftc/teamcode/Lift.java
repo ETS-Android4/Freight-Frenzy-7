@@ -17,12 +17,18 @@ public class Lift {
     public int liftPosition;
     HardwareMap hwMap = null;
     public double elevator = 0;
+    public boolean elevatorLow;
+    public boolean elevatorMid;
+    public boolean elevatorHigh;
 
-    private final double low = 2;
-    private final double mid = 4;
-    private final double high = 6;
-    private final double mult = 537.7;
-    private final double MaxPower = 0.5;
+    public final double MaxPower = 0.5;
+
+    public final int low = -20;
+    public final int mid = -450;
+    public final int high = -1000;
+    private final int mult = 538;
+    public final int increment = 30;
+
 
 
     /* Constructor */
@@ -39,23 +45,60 @@ public class Lift {
 
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         Lift.setPower(0);
     }
 
     public void ManualLift() {
-            Lift.setPower(elevator * MaxPower);
-            //liftPosition = Lift.getCurrentPosition();
-            //telemetry.addData("Lift Position" , liftPosition);
-            //telemetry.update();
+            Lift.setPower(MaxPower);
+            liftPosition = Lift.getCurrentPosition();
+        //  18-36 lowest position
+            if (elevatorLow) {
+                Lift.setTargetPosition(low);
+                Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+        if (elevatorMid){
+            Lift.setTargetPosition(mid);
+            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+        if (elevatorHigh){
+            Lift.setTargetPosition(high);
+            Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        //  -469 middle position?
+        //  -1000 top position?
 
-        //Autolift Math
-    /**
-    public void Autolift(){
 
-       this.liftPosition =  (int) (low * mult);
     }
-    */
+
+    public void LiftStepDown() {
+
+        int targetPosition = Lift.getCurrentPosition() + increment;
+        if (targetPosition > -20){
+            targetPosition = -20;
+        }
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+    }
+
+    public void LiftStepUp() {
+
+        int targetPosition = Lift.getCurrentPosition() - increment;
+        if (targetPosition < -1000){
+            targetPosition = -1000;
+        }
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+    }
 
 
 }

@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -56,6 +58,8 @@ public class DriveTrain
     public double drive = 0;
     public double strafe = 0;
     public double turn = 0;
+
+    BNO055IMU imu;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -91,10 +95,28 @@ public class DriveTrain
         LBDrive.setPower(0);
         RBDrive.setPower(0);
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 
 
     }
 
+    //Set power to all motors
+    public void setAllPower(double p){setMotorPower(p,p,p,p);}
+
+    public void setMotorPower(double lF,double rF,double lB,double rB){
+        LFDrive.setPower(lF);
+        RFDrive.setPower(rF);
+        LBDrive.setPower(lB);
+        RBDrive.setPower(rB);
+    }
     public void MecanumDrive(){
 
         // Put Mecanum Drive math and motor commands here.

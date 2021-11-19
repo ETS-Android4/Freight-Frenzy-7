@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="TeleOp Mode", group="Iterative Opmode")
 //@Disabled
 public class TeleOp_Iterative extends OpMode
 {
@@ -62,7 +62,13 @@ public class TeleOp_Iterative extends OpMode
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
 
-
+    boolean dpd2 = false;
+    boolean dpu2 = false;
+    boolean right_bumper2 = false;
+    boolean left_bumper2 = false;
+    boolean dpl2 = false;
+    boolean right_bumper1 = false;
+    boolean left_bumper1 = false;
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -109,19 +115,64 @@ public class TeleOp_Iterative extends OpMode
     public void loop() {
         // GamePad Inputs
         MecDrive.drive = -gamepad1.left_stick_y; //-1.0 to 1.0
-        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0
+        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
         MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
-        intake.PickUp = gamepad2.right_bumper;
-        intake.Drop = gamepad2.left_bumper;
-        intake.stopIntake = gamepad2.dpad_down;
 
-        spinner.armOut = gamepad2.a;
-        spinner.armIn = gamepad2.b;
-        spinner.duckSpinner = gamepad2.x;
-        spinner.stopSpinner = gamepad2.y;
+        //intake toggle
+        if(gamepad2.right_bumper && !right_bumper2){
+            intake.PickUp = gamepad2.right_bumper;
+        }
+        intake.PickUp = right_bumper2;
 
-        lift.elevator = gamepad2.right_stick_y;
+        //outtake toggle
+        if(gamepad2.left_bumper && !left_bumper2){
+            intake.Drop = gamepad2.left_bumper;
+        }
+        intake.Drop = left_bumper2;
+
+        //reverse intake toggle
+        if(gamepad2.dpad_left && !dpl2){
+            intake.reverse = gamepad2.dpad_left; //toggle
+        }
+        dpl2 = intake.reverse;
+
+       //freight Catch servo
+        intake.freightCatch = gamepad2.x;
+
+        //arm position servo
+        spinner.armOut = gamepad1.a;
+        spinner.armIn = gamepad1.b;
+
+        //spin ducks
+        if (gamepad1.right_bumper && !right_bumper1){
+            spinner.duckSpinner = gamepad1.right_bumper; //toggle
+        }
+        spinner.duckSpinner = right_bumper1;
+
+        //spin ducks reverse
+        if (gamepad1.left_bumper && !left_bumper1){
+            spinner.duckSpinnerRev = gamepad1.left_bumper;
+        }
+        left_bumper1 = gamepad1.left_bumper;
+
+
+        //lift backup controls
+        if(gamepad2.dpad_down && !dpd2) {
+            lift.LiftStepDown();
+        }
+        dpd2 = gamepad2.dpad_down;
+
+        if(gamepad2.dpad_up && !dpu2) {
+            lift.LiftStepUp();
+        }
+        dpu2 = gamepad2.dpad_up;
+
+
+      //lift positions
+        lift.elevatorLow = gamepad2.a;
+        lift.elevatorMid = gamepad2.b;
+        lift.elevatorHigh = gamepad2.y;
 
         //  Robot Functions
 
@@ -131,10 +182,12 @@ public class TeleOp_Iterative extends OpMode
         lift.ManualLift();
 
 
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
-
+        telemetry.addData("Lift Position" , lift.liftPosition);
+        telemetry.update();
         //
         /**liftPosition = Lift.getCurrentPosition();
         telemetry.addData("Lift Position" , liftPosition);

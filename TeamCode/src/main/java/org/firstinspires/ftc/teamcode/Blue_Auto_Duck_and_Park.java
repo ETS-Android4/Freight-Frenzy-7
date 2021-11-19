@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -68,9 +67,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto_One", group="Pushbot")
-@Disabled
-public class Blue_Auto_One extends LinearOpMode {
+@Autonomous(name="Blue_Auto Duck & Park", group="Pushbot")
+//@Disabled
+public class Blue_Auto_Duck_and_Park extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -138,7 +137,7 @@ public class Blue_Auto_One extends LinearOpMode {
             telemetry.update();
 
         }
-        MecDrive.drive = 0.0;
+        /**MecDrive.drive = 0.0;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 1.0;
         MecDrive.MecanumDrive();
@@ -207,6 +206,6 @@ public class Blue_Auto_One extends LinearOpMode {
             telemetry.update();
         }
 
-
+    }*/
     }
 }
