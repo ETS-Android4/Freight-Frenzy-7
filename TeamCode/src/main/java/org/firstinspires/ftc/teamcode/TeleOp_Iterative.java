@@ -123,19 +123,19 @@ public class TeleOp_Iterative extends OpMode
         if(gamepad2.right_bumper && !right_bumper2){
             intake.PickUp = gamepad2.right_bumper;
         }
-        right_bumper2 = gamepad2.right_bumper;
+        intake.PickUp = right_bumper2;
 
         //outtake toggle
         if(gamepad2.left_bumper && !left_bumper2){
             intake.Drop = gamepad2.left_bumper;
         }
-        left_bumper2 = gamepad2.left_bumper;
+        intake.Drop = left_bumper2;
 
         //reverse intake toggle
         if(gamepad2.dpad_left && !dpl2){
-            intake.reverse = gamepad2.dpad_up; //toggle
+            intake.reverse = gamepad2.dpad_left; //toggle
         }
-        dpl2 = gamepad2.dpad_left;
+        dpl2 = intake.reverse;
 
        //freight Catch servo
         intake.freightCatch = gamepad2.x;
@@ -148,7 +148,7 @@ public class TeleOp_Iterative extends OpMode
         if (gamepad1.right_bumper && !right_bumper1){
             spinner.duckSpinner = gamepad1.right_bumper; //toggle
         }
-        right_bumper1 = gamepad1.right_bumper;
+        spinner.duckSpinner = right_bumper1;
 
         //spin ducks reverse
         if (gamepad1.left_bumper && !left_bumper1){
