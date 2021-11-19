@@ -129,7 +129,7 @@ import com.qualcomm.robotcore.util.Range;
             spinner.stopSpinner = gamepad1.y; //remove
 
 
-       /* if(gamepad2.dpad_down && !dpdPrev) {
+       /** if(gamepad2.dpad_down && !dpdPrev) {
             lift.LiftStepDown();
         }
         dpdPrev = gamepad2.dpad_down;
