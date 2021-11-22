@@ -38,6 +38,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -89,6 +91,7 @@ public class TeleOp_Iterative_backup extends OpMode
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("lift current", lift.Lift.getCurrent(CurrentUnit.AMPS));
     }
 
     /*
@@ -160,6 +163,8 @@ public class TeleOp_Iterative_backup extends OpMode
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
         telemetry.addData("Lift Position" , lift.liftPosition);
+        telemetry.addData("Lift Current", lift.Lift.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("Ifrun", lift.ifRun);
         telemetry.update();
         //
         /**liftPosition = Lift.getCurrentPosition();

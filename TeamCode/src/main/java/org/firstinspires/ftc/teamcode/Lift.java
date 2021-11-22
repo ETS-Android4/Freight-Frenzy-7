@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class Lift {
 
@@ -17,9 +18,10 @@ public class Lift {
     public int liftPosition;
     HardwareMap hwMap = null;
     public double elevator = 0;
-    public boolean elevatorLow;
+    public boolean elevatorLow = true;
     public boolean elevatorMid;
     public boolean elevatorHigh;
+    public int ifRun = 0;
 
     public final double MaxPower = 0.5;
 
@@ -28,6 +30,7 @@ public class Lift {
     public final int high = -1000;
     private final int mult = 538;
     public final int increment = 30;
+    private boolean runLift = false;
 
 
 
@@ -53,20 +56,34 @@ public class Lift {
     }
 
     public void ManualLift() {
+        if (elevatorLow || elevatorMid || elevatorHigh) {
+            runLift = true;
+        }
+        if (runLift){
             Lift.setPower(MaxPower);
+        }
+
             liftPosition = Lift.getCurrentPosition();
         //  18-36 lowest position
-            if (elevatorLow) {
+            if (elevatorLow && liftPosition < -70) {
                 Lift.setTargetPosition(low);
                 Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ifRun = 1;
             }
+        if (elevatorLow && liftPosition > -70) {
+            //Lift.setPower(0);
+            Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            ifRun = 2;
+        }
         if (elevatorMid){
             Lift.setTargetPosition(mid);
             Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ifRun = 3;
         }
         if (elevatorHigh){
             Lift.setTargetPosition(high);
             Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ifRun = 4;
         }
         //  -469 middle position?
         //  -1000 top position?
