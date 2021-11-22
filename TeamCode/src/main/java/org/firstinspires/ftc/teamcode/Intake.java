@@ -49,9 +49,9 @@ public class Intake {
             intake.setPower(outPower);
             freightStop.setPosition(0);
         }
-        /*if (stopIntake) {
+        if (stopIntake) {
             intake.setPower(0);
-        }*/
+        }
         if (reverse) {
             intake.setPower(reverseIntake);
         }
