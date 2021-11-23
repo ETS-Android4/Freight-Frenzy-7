@@ -88,9 +88,9 @@ public class CarouselDuck {
         if (duckSpinnerRev) {
             DuckSpinner.setPower(-spinnerPower);
         }
-        /*if (stopSpinner) {
+        if (stopSpinner) {
             DuckSpinner.setPower(0);
-        }*/
+        }
     }
  }
 

@@ -164,7 +164,7 @@ public class TeleOp_Iterative_backup extends OpMode
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
         telemetry.addData("Lift Position" , lift.liftPosition);
         telemetry.addData("Lift Current", lift.Lift.getCurrent(CurrentUnit.AMPS));
-        telemetry.addData("Ifrun", lift.ifRun);
+      //  telemetry.addData("Ifrun", lift.ifRun);
         telemetry.update();
         //
         /**liftPosition = Lift.getCurrentPosition();
