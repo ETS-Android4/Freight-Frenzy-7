@@ -36,6 +36,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 /**
  * This is NOT an opmode.
  *
@@ -58,6 +63,8 @@ public class DriveTrain
     public double drive = 0;
     public double strafe = 0;
     public double turn = 0;
+    public Orientation lastAngles = new Orientation();
+    public double currAngle = 0.0;
 
     BNO055IMU imu;
 
@@ -138,8 +145,12 @@ public class DriveTrain
 
 
 
-    }
 
+    }
+    public void resetAngle() {
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //imu is the internal gyro and things
+        currAngle = 0;
+    }
 // End of Class
  }
 

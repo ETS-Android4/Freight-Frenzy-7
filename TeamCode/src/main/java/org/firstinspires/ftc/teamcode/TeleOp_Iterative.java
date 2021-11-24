@@ -120,22 +120,28 @@ public class TeleOp_Iterative extends OpMode
 
 
         //intake toggle
-        if(gamepad2.right_bumper && !right_bumper2){
-            intake.PickUp = gamepad2.right_bumper;
+        if(gamepad2.right_bumper) {
+            intake.PickUp = true;
         }
-        intake.PickUp = right_bumper2;
+        else {
+            intake.stopIntake = true;
+        }
 
         //outtake toggle
-        if(gamepad2.left_bumper && !left_bumper2){
-            intake.Drop = gamepad2.left_bumper;
+        if(gamepad2.left_bumper){
+            intake.Drop = true;
         }
-        intake.Drop = left_bumper2;
+        else {
+            intake.stopIntake = true;
+        }
 
         //reverse intake toggle
-        if(gamepad2.dpad_left && !dpl2){
-            intake.reverse = gamepad2.dpad_left; //toggle
+        if(gamepad2.dpad_left){
+            intake.reverse = true; //toggle
         }
-        dpl2 = intake.reverse;
+        else {
+            intake.stopIntake = true;
+        }
 
        //freight Catch servo
         intake.freightCatch = gamepad2.x;
@@ -145,20 +151,26 @@ public class TeleOp_Iterative extends OpMode
         spinner.armIn = gamepad1.b;
 
         //spin ducks
-        if (gamepad1.right_bumper && !right_bumper1){
-            spinner.duckSpinner = gamepad1.right_bumper; //toggle
+        if (gamepad1.right_bumper){
+            spinner.duckSpinner = true; //toggle
         }
-        spinner.duckSpinner = right_bumper1;
+        else {
+            spinner.stopSpinner = true;
+        }
+
 
         //spin ducks reverse
-        if (gamepad1.left_bumper && !left_bumper1){
-            spinner.duckSpinnerRev = gamepad1.left_bumper;
+        if (gamepad1.left_bumper){
+            spinner.duckSpinnerRev = true;
         }
-        left_bumper1 = gamepad1.left_bumper;
+        else {
+            spinner.stopSpinner = true;
+        }
+
 
 
         //lift backup controls
-        if(gamepad2.dpad_down && !dpd2) {
+        /*if(gamepad2.dpad_down && !dpd2) {
             lift.LiftStepDown();
         }
         dpd2 = gamepad2.dpad_down;
@@ -166,7 +178,7 @@ public class TeleOp_Iterative extends OpMode
         if(gamepad2.dpad_up && !dpu2) {
             lift.LiftStepUp();
         }
-        dpu2 = gamepad2.dpad_up;
+        dpu2 = gamepad2.dpad_up;*/
 
 
       //lift positions

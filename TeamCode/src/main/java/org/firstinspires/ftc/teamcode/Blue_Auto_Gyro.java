@@ -96,10 +96,10 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         turnTo(-90);
 
     }
-    public void resetAngle() {
-        lastAngles = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        currAngle = 0;
-    }
+  //  public void resetAngle() {
+     //   lastAngles = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //imu is the internal gyro and things
+       // currAngle = 0;
+ //   }
 
     public double getAngle(){
         Orientation orientation = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -116,7 +116,7 @@ public class Blue_Auto_Gyro extends LinearOpMode {
     }
 
     public void turn(double degrees){
-        resetAngle();
+       MecDrive.resetAngle();
         double error = degrees;
         while (opModeIsActive() && Math.abs(error) > 2){
             double motorPower = (error < 0 ? -0.3 : 0.3);
