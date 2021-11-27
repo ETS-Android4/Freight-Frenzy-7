@@ -17,10 +17,10 @@ public class Intake {
     public Servo freightStop;
     //private variables
 
-    private final double inPower = 1;
-    private final double outPower = .65;
-    private final double reverseIntake = -1;
-    private final double catchFreight = 0.5;
+    public final double inPower = 1;
+    public final double outPower = .65;
+    public final double reverseIntake = -1;
+    public final double catchFreight = 0.5;
     /* Constructor */
     public Intake() {
 
