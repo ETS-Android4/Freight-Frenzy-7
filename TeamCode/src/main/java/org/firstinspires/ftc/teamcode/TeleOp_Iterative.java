@@ -138,10 +138,10 @@ public class TeleOp_Iterative extends OpMode
 
         //reverse intake toggle
         if(gamepad2.dpad_left){
-            intake.reverse = true; //toggle
+            intake.intake.setPower(intake.reverseIntake);
         }
         else {
-            intake.reverse = false;
+            intake.intake.setPower(0);
         }
 
        //freight Catch servo
@@ -153,19 +153,20 @@ public class TeleOp_Iterative extends OpMode
 
         //spin ducks
         if (gamepad1.right_bumper){
-            spinner.duckSpinner = true; //toggle
+            spinner.DuckSpinner.setPower(spinner.spinnerPower);
         }
         else {
-            spinner.duckSpinner = false;
+            spinner.DuckSpinner.setPower(0);
+
         }
 
 
         //spin ducks reverse
         if (gamepad1.left_bumper){
-            spinner.duckSpinnerRev = true;
+            spinner.DuckSpinner.setPower(-spinner.spinnerPower);
         }
         else {
-            spinner.duckSpinnerRev = false;
+            spinner.DuckSpinner.setPower(0);
         }
 
 
