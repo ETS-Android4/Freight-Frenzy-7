@@ -29,12 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.drawable.GradientDrawable;
-
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -43,9 +39,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
-@Autonomous(name="Blue_Auto_Gyro", group="Pushbot")
+@Autonomous(name="Red_Auto_Gyro", group="Pushbot")
 //@Disabled
-public class Blue_Auto_Gyro extends LinearOpMode {
+public class Red_Auto_Gyro extends LinearOpMode {
 
 
     DriveTrain MecDrive = new DriveTrain();
@@ -122,7 +118,7 @@ public class Blue_Auto_Gyro extends LinearOpMode {
        MecDrive.resetAngle();
         double error = degrees;
         while (opModeIsActive() && Math.abs(error) > 2){
-            double motorPower = (error < 0 ? -gyroTurnPwr: gyroTurnPwr);
+            double motorPower = (error < 0 ? -gyroTurnPwr : gyroTurnPwr);
             MecDrive.setMotorPower(-motorPower, motorPower, -motorPower, motorPower);
             MecDrive.MecanumDrive();
             error = degrees - getAngle();
