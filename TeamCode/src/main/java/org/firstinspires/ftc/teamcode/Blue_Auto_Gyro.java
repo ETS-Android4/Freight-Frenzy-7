@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -91,9 +92,9 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         telemetry.update();
 
         //test turn
-        turn(90);
+        turn(45);
         sleep(3000);
-        turnTo(-90);
+        turn(-90);
 
     }
   //  public void resetAngle() {
@@ -103,7 +104,8 @@ public class Blue_Auto_Gyro extends LinearOpMode {
 
 
 //  Start Gyro methods copy
-    double gyroTurnPwr = 0.5;
+    double gyroTurnMin = 0.25;
+    double gyroTurnMax = 1;
     public double getAngle(){
         Orientation orientation = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double deltaAngle = orientation.firstAngle - lastAngles.firstAngle;
@@ -122,9 +124,9 @@ public class Blue_Auto_Gyro extends LinearOpMode {
        MecDrive.resetAngle();
         double error = degrees;
         while (opModeIsActive() && Math.abs(error) > 2){
-            double motorPower = (error < 0 ? -gyroTurnPwr: gyroTurnPwr);
+            double setPower = Range.clip(Math.abs(error)/180+gyroTurnMin, -gyroTurnMax, gyroTurnMax);
+            double motorPower = (error < 0 ? -setPower: setPower);
             MecDrive.setMotorPower(-motorPower, motorPower, -motorPower, motorPower);
-            MecDrive.MecanumDrive();
             error = degrees - getAngle();
             telemetry.addData("error", error);
             telemetry.update();
