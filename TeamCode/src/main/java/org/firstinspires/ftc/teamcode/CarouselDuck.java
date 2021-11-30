@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class CarouselDuck {
 
-    public Servo DuckArm = null;
+    public Servo DuckArm;
     public DcMotor DuckSpinner = null;
     public boolean armOut;
     public boolean armIn;
@@ -45,17 +45,16 @@ public class CarouselDuck {
     public boolean duckSpinnerRev;
     public boolean stopSpinner;
     public double spinnerPower = 1;
-    public double rest =  0.0;
+    public double rest = 0.0;
     public double arm = 1;
-
-
+    public double armPosition;
 
 
     /* local OpMode members. */
-    HardwareMap hwMap           =  null;
+    HardwareMap hwMap = null;
 
     /* Constructor */
-    public CarouselDuck(){
+    public CarouselDuck() {
 
 
     }
@@ -66,7 +65,7 @@ public class CarouselDuck {
         hwMap = ahwMap;
 
         // Define and initialize ALL installed servos.
-        DuckArm  = hwMap.get(Servo.class, "DuckArm");
+        DuckArm = hwMap.get(Servo.class, "DuckArm");
         DuckSpinner = hwMap.get(DcMotor.class, "Spinner");
 
         DuckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -91,6 +90,19 @@ public class CarouselDuck {
         if (stopSpinner) {
             DuckSpinner.setPower(0);
         }
-    }
- }
 
+    }
+
+    public void DuckArmSet() {
+        armPosition = DuckArm.getPosition();
+        if (armPosition == 0) {
+            DuckArm.setPosition(arm);
+        }
+        if (armPosition == 1) {
+            DuckArm.setPosition(rest);
+        }
+        if (armPosition != 0 && armPosition != 1){
+            DuckArm.setPosition(arm);
+        }
+    }
+}

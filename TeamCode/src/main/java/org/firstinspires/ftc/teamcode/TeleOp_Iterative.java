@@ -69,6 +69,8 @@ public class TeleOp_Iterative extends OpMode
     boolean dpl2 = false;
     boolean right_bumper1 = false;
     boolean left_bumper1 = false;
+    public boolean prevA = false;
+
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -151,6 +153,12 @@ public class TeleOp_Iterative extends OpMode
         spinner.armOut = gamepad1.a;
         spinner.armIn = gamepad1.b;
 
+        /*if (gamepad1.a && !prevA){
+            prevA = true;
+            spinner.DuckArmSet();
+        }
+        prevA = gamepad1.a;*/
+
         //spin ducks
         if (gamepad1.right_bumper){
             spinner.DuckSpinner.setPower(spinner.spinnerPower);
@@ -194,6 +202,7 @@ public class TeleOp_Iterative extends OpMode
         intake.intake();
         spinner.carouselDuck();
         lift.ManualLift();
+        spinner.DuckArmSet();
 
 
 
