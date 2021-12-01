@@ -135,5 +135,5 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         MecDrive.MecanumDrive();
     }
 
-    // end gyro methods copy
+    // end gyro method copy
 }
