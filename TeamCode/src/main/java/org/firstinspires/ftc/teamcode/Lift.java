@@ -93,30 +93,25 @@ public class Lift {
 
     public void LiftStepDown() {
 
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         int targetPosition = Lift.getCurrentPosition() + increment;
         if (targetPosition > -20){
             targetPosition = -20;
         }
-        Lift.setPower(MaxPower);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-
     }
 
     public void LiftStepUp() {
+
+        Lift.setPower(MaxPower);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         int targetPosition = Lift.getCurrentPosition() - increment;
         if (targetPosition < -1000){
             targetPosition = -1000;
         }
-        Lift.setPower(MaxPower);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-
     }
-
 
 }
 
