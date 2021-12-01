@@ -135,17 +135,5 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         MecDrive.MecanumDrive();
     }
 
-    public void turnTo(double degrees){
-        Orientation orientation = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double error = degrees - orientation.firstAngle;
-        if(error > 180){
-            error -= 360;
-        } else if(error <= -180){
-            error += 360;
-        }
-        turn(error);
-
-    }
-
     // end gyro methods copy
 }
