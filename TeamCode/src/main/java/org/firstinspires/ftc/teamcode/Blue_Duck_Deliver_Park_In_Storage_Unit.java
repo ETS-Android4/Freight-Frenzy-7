@@ -89,10 +89,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         telemetry.update();
 
         //Duck Arm Stuff
-        //test turn
-        turn(45);
-        sleep(3000);
-        turn(-90);
+
         spinner.DuckArm.setPosition(spinner.arm);
         spinner.DuckSpinner.setPower(.7);
         spinner.carouselDuck();
@@ -126,7 +123,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.2;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.65)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
@@ -148,7 +145,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         }
 
 //go forward
-        MecDrive.drive = 0.4;
+        MecDrive.drive = 0.3;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
@@ -185,7 +182,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
 
 //strafe to wall
         MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.5;
+        MecDrive.strafe = 0.65;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
@@ -200,7 +197,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.45)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
