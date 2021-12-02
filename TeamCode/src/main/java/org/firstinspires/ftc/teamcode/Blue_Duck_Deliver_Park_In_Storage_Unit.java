@@ -65,7 +65,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
 
-       Vision.init(hardwareMap);
+        Vision.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -107,27 +107,35 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         sleep(2000);
 
 //square to wall
-        MecDrive.drive = 0.5;
-        MecDrive.strafe = -0.75;
+        turn(-40);
+
+
+//drive forward
+        MecDrive.drive = 0.6;
+        MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
-//turn to hub
-        MecDrive.drive = 0.0;
+
+//turn left
+        turn(90);
+
+//go forward
+        MecDrive.drive = 0.6;
         MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.2;
+        MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.65)) {
+        while (opModeIsActive() && (runtime.seconds() < .25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-
         }
+
 
 //lift by vision
         lift.ManualLift();
@@ -145,19 +153,16 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         }
 
 //go forward
-        MecDrive.drive = 0.3;
+        MecDrive.drive = 0.2;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .75)) {
+        while (opModeIsActive() && (runtime.seconds() < .15)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
+
 
 //drop freight
         intake.intake();
@@ -175,37 +180,37 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-//strafe to wall
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.65;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+//Drop Lift
+        lift.elevatorLow = true;
 
-//drive forward
-        MecDrive.drive = .6;
+//Backup to wall
+        MecDrive.drive = -0.6;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.45)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.75)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+
+//strafe to unit
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = -0.65;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
     }
-  //  public void resetAngle() {
-     //   lastAngles = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //imu is the internal gyro and things
-       // currAngle = 0;
- //   }
 
 
 //  Start Gyro methods copy
