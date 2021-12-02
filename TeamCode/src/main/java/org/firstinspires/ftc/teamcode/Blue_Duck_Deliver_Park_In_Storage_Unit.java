@@ -106,7 +106,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
 
         sleep(2000);
 
-//angled strafe
+//square to wall
         MecDrive.drive = 0.5;
         MecDrive.strafe = -0.75;
         MecDrive.turn = 0.0;

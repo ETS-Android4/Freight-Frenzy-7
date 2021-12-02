@@ -44,7 +44,6 @@ public class Intake {
 
             intake.setPower(inPower);
         }
-        /*
         if (Drop) {
 
             intake.setPower(outPower);
@@ -58,6 +57,6 @@ public class Intake {
         }
         if (freightCatch) {
             freightStop.setPosition(catchFreight);
-        }*/
+        }
     }
 }
