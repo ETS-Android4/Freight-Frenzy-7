@@ -138,12 +138,6 @@ public class TeleOp_Iterative extends OpMode
             intake.intake.setPower(0);
         }
 
-
-
-
-
-
-
        //freight Catch servo
         intake.freightCatch = gamepad2.x;
 

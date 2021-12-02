@@ -56,6 +56,10 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
+    public double Angle1 = -30;
+    public double Angle2 = 60;
+    public long holdOn = 20;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initializing");
@@ -107,7 +111,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         sleep(2000);
 
 //square to wall
-        turn(-40);
+        turn(Angle1);
 
 
 //drive forward
@@ -116,14 +120,14 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
 
         }
 
 //turn left
-        turn(90);
+        turn(Angle2);
 
 //go forward
         MecDrive.drive = 0.6;
@@ -158,13 +162,14 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .15)) {
+        while (opModeIsActive() && (runtime.seconds() < .25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
 
 //drop freight
+        sleep(holdOn);
         intake.intake();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.1)) {
@@ -194,7 +199,7 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.75)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
