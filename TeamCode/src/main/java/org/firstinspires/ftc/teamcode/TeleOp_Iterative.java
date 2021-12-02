@@ -125,26 +125,24 @@ public class TeleOp_Iterative extends OpMode
         if(gamepad2.right_bumper) {
             intake.intake.setPower(intake.inPower);
         }
-        else {
-            intake.intake.setPower(0);
-        }
-
         //outtake toggle
-        if(gamepad2.left_bumper){
+        else  if(gamepad2.left_bumper){
             intake.intake.setPower(intake.outPower);
             intake.freightStop.setPosition(0);
         }
-        else {
+        //reverse intake toggle
+        else  if(gamepad2.dpad_left){
+            intake.intake.setPower(intake.reverseIntake);
+        }
+        else{
             intake.intake.setPower(0);
         }
 
-        //reverse intake toggle
-        if(gamepad2.dpad_left){
-            intake.intake.setPower(intake.reverseIntake);
-        }
-        else {
-            intake.intake.setPower(0);
-        }
+
+
+
+
+
 
        //freight Catch servo
         intake.freightCatch = gamepad2.x;
@@ -158,33 +156,14 @@ public class TeleOp_Iterative extends OpMode
         if (gamepad1.right_bumper){
             spinner.DuckSpinner.setPower(spinner.spinnerPower);
         }
-        else {
-            spinner.DuckSpinner.setPower(0);
-
-        }
-
-
         //spin ducks reverse
-        if (gamepad1.left_bumper){
+        else if (gamepad1.left_bumper){
             spinner.DuckSpinner.setPower(-spinner.spinnerPower);
         }
-        else {
+        else{
             spinner.DuckSpinner.setPower(0);
+
         }
-
-
-
-        //lift backup controls
-        /*if(gamepad2.dpad_down && !dpd2) {
-            lift.LiftStepDown();
-        }
-        dpd2 = gamepad2.dpad_down;
-
-        if(gamepad2.dpad_up && !dpu2) {
-            lift.LiftStepUp();
-        }
-        dpu2 = gamepad2.dpad_up;*/
-
 
       //lift positions
         lift.elevatorLow = gamepad2.a;
@@ -197,7 +176,7 @@ public class TeleOp_Iterative extends OpMode
         intake.intake();
         spinner.carouselDuck();
         lift.ManualLift();
-        spinner.DuckArmSet();
+
 
 
 

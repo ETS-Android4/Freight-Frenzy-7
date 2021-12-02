@@ -93,7 +93,7 @@ public class CarouselDuck {
 
     }
 
-    public void DuckArmSet() {
+   /* public void DuckArmSet() {
         armPosition = DuckArm.getPosition();
         if (armPosition == 0) {
             DuckArm.setPosition(arm);
@@ -104,5 +104,5 @@ public class CarouselDuck {
         else {
             DuckArm.setPosition(rest);
         }
-    }
+    }*/
 }
