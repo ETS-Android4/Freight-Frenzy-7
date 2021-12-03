@@ -130,7 +130,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
 
 
         spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(-0.7);
+        spinner.DuckSpinner.setPower(0.7);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.5)) {
