@@ -95,7 +95,7 @@ public class Red_Duck_Unit extends LinearOpMode {
 
         //Duck Arm Stuff
 
-        spinner.DuckArm.setPosition(spinner.arm);
+        spinner.DuckArm.setPosition(spinner.rest);
         spinner.DuckSpinner.setPower(.7);
         spinner.carouselDuck();
         runtime.reset();
@@ -107,7 +107,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.arm);
+        spinner.DuckArm.setPosition(spinner.rest);
 
         sleep(2000);
 
