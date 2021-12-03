@@ -71,6 +71,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         spinner.init(hardwareMap);
 
         Vision.init(hardwareMap);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -93,10 +94,9 @@ public class Red_Duck_Unit extends LinearOpMode {
         telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
         telemetry.update();
 
-        //Duck Arm Stuff
-
+//Duck Arm Stuff
         spinner.DuckArm.setPosition(spinner.rest);
-        spinner.DuckSpinner.setPower(.7);
+        spinner.DuckSpinner.setPower(-.7);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.5)) {
@@ -230,7 +230,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.47)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.49)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

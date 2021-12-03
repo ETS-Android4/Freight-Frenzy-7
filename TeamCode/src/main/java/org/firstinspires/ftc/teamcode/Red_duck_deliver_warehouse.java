@@ -90,7 +90,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
     Lift lift = new Lift();
     private double firstTurn = -40;
     private double secondTurn = 20;
-    private double ThirdTurn = -85;
+    private double ThirdTurn = -83;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
@@ -107,6 +107,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         spinner.init(hardwareMap);
 
        Vision.init(hardwareMap);
+       spinner.DuckArm.setPosition(spinner.arm);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -130,8 +131,8 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         telemetry.update();
 
 
-        spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(.7);
+        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckSpinner.setPower(-.7);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.5)) {
@@ -142,7 +143,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.arm);
+        spinner.DuckArm.setPosition(.5);
 
         sleep(2000);
 
@@ -208,6 +209,11 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         //intake.stopIntake = true;
         intake.intake.setPower(0);
 
+//bring arm in rest
+        spinner.DuckArm.setPosition(spinner.rest);
+
+        sleep(sleeptime);
+
 //going backwards
         MecDrive.drive = -0.4;
         MecDrive.strafe = 0.0;
@@ -221,7 +227,8 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
 //drop lift
         lift.Lift.setTargetPosition(lift.low);
         lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        
+
+
 //turn left
        turn(ThirdTurn);
 
