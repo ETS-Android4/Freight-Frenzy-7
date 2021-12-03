@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -74,7 +75,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  */
 
 @Autonomous(name="Blue_Auto_Duck_Deliver_Park_Box", group="Pushbot")
-//@Disabled
+@Disabled
 public class Blue_Auto_Duck_Deliver_Park_Box extends LinearOpMode {
 
     /* Declare OpMode members. */
