@@ -29,25 +29,25 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.drawable.GradientDrawable;
-
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.SerialNumber;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import java.io.Serializable;
 
-@Autonomous(name="Blue_Auto_Gyro", group="Pushbot")
-@Disabled
-public class Blue_Auto_Gyro extends LinearOpMode {
+
+@Autonomous(name="Blue Deliver Warehouse", group="Pushbot")
+//@Disabled
+public class Blue_Deliver_Park_In_WareHouse extends LinearOpMode {
 
 
     DriveTrain MecDrive = new DriveTrain();
@@ -57,6 +57,9 @@ public class Blue_Auto_Gyro extends LinearOpMode {
     Lift lift = new Lift();
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
+    private double firstTurn = -33;
+    private double secondTurn = 80;
+    private int sleepTime = 1000;
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
@@ -92,20 +95,83 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
         telemetry.update();
 
-        //test turn
-     //   turn(45);
-       sleep(30000);
-      //  turn(-90);
-        while(opModeIsActive()){
-            getAngle();
+        //lock duck arm
+        spinner.DuckArm.setPosition(spinner.rest);
+
+//turn to face hub
+       turn(firstTurn);
+
+//lift by vision
+        lift.ManualLift();
+        if (Vision.FinalTeamEleLoc == 0) {
+            lift.Lift.setTargetPosition(lift.low);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (Vision.FinalTeamEleLoc == 1) {
+            lift.Lift.setTargetPosition(lift.mid);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (Vision.FinalTeamEleLoc == 2) {
+            lift.Lift.setTargetPosition(lift.high);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+// delay
+        sleep(sleepTime);
+
+//go forward
+        MecDrive.drive = 0.6;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < .55)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+
+//drop freight
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+            //intake.Drop = true;
+            intake.intake.setPower(.65);
+        }
+        //intake.stopIntake = true;
+        intake.intake.setPower(0);
+
+//going backwards
+        MecDrive.drive = -0.4;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
         }
 
-    }
-  //  public void resetAngle() {
-     //   lastAngles = MecDrive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //imu is the internal gyro and things
-       // currAngle = 0;
- //   }
+//lift down
+        lift.Lift.setTargetPosition(lift.low);
+        lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+//turn to wall
+        turn(secondTurn);
+
+//drive forward
+        MecDrive.drive = .6;
+        MecDrive.strafe = -0.1;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.00)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+    }
 
 //  Start Gyro methods copy
     double gyroTurnMin = 0.25;
@@ -121,12 +187,11 @@ public class Blue_Auto_Gyro extends LinearOpMode {
         currAngle += deltaAngle;
         lastAngles = orientation;
         telemetry.addData("Gyro", orientation.firstAngle);
-        telemetry.addData("where am I", currAngle);
         return currAngle;
     }
 
     public void turn(double degrees){
-       MecDrive.resetAngle();
+    //   MecDrive.resetAngle();
         double error = degrees;
         while (opModeIsActive() && Math.abs(error) > 2){
             double setPower = Range.clip(Math.abs(error)/180+gyroTurnMin, -gyroTurnMax, gyroTurnMax);
