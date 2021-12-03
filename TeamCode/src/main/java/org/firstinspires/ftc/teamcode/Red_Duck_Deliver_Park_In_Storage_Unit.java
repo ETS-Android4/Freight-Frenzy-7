@@ -41,9 +41,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
-@Autonomous(name="Blue Duck Unit", group="Pushbot")
+@Autonomous(name="Red Duck Unit", group="Pushbot")
 //@Disabled
-public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
+public class Red_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
 
 
     DriveTrain MecDrive = new DriveTrain();
@@ -56,9 +56,9 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
-    public double Angle1 = -30;
-    public double Angle2 = 66;
-    public long holdOn = 1000;
+    public double Angle1 = 30;
+    public double Angle2 = -60;
+    public long holdOn = 20;
 
     @Override
     public void runOpMode() {
@@ -120,32 +120,26 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.15)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
+
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
 
 //turn left
         turn(Angle2);
 
 //go forward
-        MecDrive.drive = 0.57;
+        MecDrive.drive = 0.6;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .70)) {
+        while (opModeIsActive() && (runtime.seconds() < .25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
+
 
 //lift by vision
         lift.ManualLift();
@@ -162,31 +156,27 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
             lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        sleep(holdOn);
-
 //go forward
         MecDrive.drive = 0.2;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .3)) {
+        while (opModeIsActive() && (runtime.seconds() < .25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        sleep(holdOn);
+
 
 //drop freight
+        sleep(holdOn);
         intake.intake();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+            //intake.Drop = true;
             intake.intake.setPower(.65);
         }
-
+        //intake.stopIntake = true;
         intake.intake.setPower(0);
 
 //going backwards
@@ -195,18 +185,13 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.25)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
 
 //Drop Lift
-        lift.ManualLift();
-        lift.Lift.setTargetPosition(lift.low);
+        lift.elevatorLow = true;
 
 //Backup to wall
         MecDrive.drive = -0.6;
@@ -218,26 +203,18 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
 
 //strafe to unit
         MecDrive.drive = 0.0;
-        MecDrive.strafe = -0.65;
+        MecDrive.strafe = 0.65;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.47)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        MecDrive.drive = 0.0;
-        MecDrive.strafe = 0.0;
-        MecDrive.turn = 0.0;
-        MecDrive.MecanumDrive();
-        sleep(holdOn);
+
     }
 
 
@@ -272,8 +249,6 @@ public class Blue_Duck_Deliver_Park_In_Storage_Unit extends LinearOpMode {
         MecDrive.setAllPower(0);
         MecDrive.MecanumDrive();
     }
-
-
 
     // end gyro method copy
 }
