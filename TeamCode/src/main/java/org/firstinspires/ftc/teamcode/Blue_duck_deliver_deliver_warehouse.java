@@ -224,14 +224,14 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
 //turn left
        turn(ThirdTurn);
 
-//drive to warehouse
+//strafe to wall
 
-        MecDrive.drive = .6;
-        MecDrive.strafe = -0.2;
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = -0.35;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.2)) {
+        while (opModeIsActive() && (runtime.seconds() < 1)){
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -239,6 +239,116 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
+
+
+//Set the freight catch
+
+intake.freightCatch = true;
+
+        //intake freight
+        intake.intake();
+        MecDrive.drive = 0.34;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.7)) {
+            //intake.Drop = true;
+            intake.intake.setPower(1);
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+
+        }
+
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+
+        //intake.stopIntake = true;
+        intake.intake.setPower(0);
+
+        //go backward
+        MecDrive.drive = -0.4;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.95)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+
+        //turn
+        turn(-20);
+
+        //lift by vision
+
+        lift.ManualLift();
+        if (Vision.FinalTeamEleLoc == 0) {
+            lift.Lift.setTargetPosition(lift.low);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (Vision.FinalTeamEleLoc == 1) {
+            lift.Lift.setTargetPosition(lift.mid);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (Vision.FinalTeamEleLoc == 2) {
+            lift.Lift.setTargetPosition(lift.high);
+            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        //drive forward
+        MecDrive.drive = 0.4;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+
+        //Drop freight
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+            //intake.Drop = true;
+            intake.intake.setPower(.65);
+        }
+        //intake.stopIntake = true;
+        intake.intake.setPower(0);
+
+        //turn
+        turn(67);
+
+        //Lower lift
+        lift.Lift.setTargetPosition(lift.low);
+        lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //drive forward
+        MecDrive.drive = 0.8;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.9)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+
     }
     //  Start Gyro methods copy
     double gyroTurnMin = 0.25;
