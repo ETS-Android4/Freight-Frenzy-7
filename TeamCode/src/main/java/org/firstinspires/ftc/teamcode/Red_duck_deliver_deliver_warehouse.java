@@ -74,9 +74,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Duck_Deliver_Deliver_Warehouse", group="Pushbot")
+@Autonomous(name="Red_Duck_Deliver_Deliver_Warehouse", group="Pushbot")
 //@Disabled
-public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
+//Arm is the only thing that needs to be adjusted
+public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -87,9 +88,9 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
     Intake intake = new Intake();
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
-    private double firstTurn = 40;
-    private double secondTurn = -20;
-    private double ThirdTurn = 85;
+    private double firstTurn = -40;
+    private double secondTurn = 20;
+    private double ThirdTurn = -85;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
@@ -129,7 +130,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         telemetry.update();
 
 
-        spinner.DuckArm.setPosition(spinner.arm);
+        spinner.DuckArm.setPosition(spinner.rest);
         spinner.DuckSpinner.setPower(-0.7);
         spinner.carouselDuck();
         runtime.reset();
@@ -227,7 +228,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
 //strafe to wall
 
         MecDrive.drive = 0.0;
-        MecDrive.strafe = -0.35;
+        MecDrive.strafe = 0.35;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
@@ -242,7 +243,8 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
 
 
 //Set the freight catch
-        intake.freightCatch = true;
+
+intake.freightCatch = true;
 
         //intake freight
         intake.intake();
@@ -283,7 +285,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.MecanumDrive();
 
         //turn
-        turn(-20);
+        turn(20);
 
         //lift by vision
 
@@ -330,7 +332,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         intake.intake.setPower(0);
 
         //turn
-        turn(67);
+        turn(-67);
 
         //Lower lift
         lift.Lift.setTargetPosition(lift.low);
