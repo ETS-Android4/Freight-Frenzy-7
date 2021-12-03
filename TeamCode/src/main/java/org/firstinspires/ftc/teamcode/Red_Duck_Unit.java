@@ -43,6 +43,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name="Red Duck Unit", group="Pushbot")
 //@Disabled
+//Copied from blue auto and has been adjusted accordingly
 public class Red_Duck_Unit extends LinearOpMode {
 
 
@@ -57,8 +58,8 @@ public class Red_Duck_Unit extends LinearOpMode {
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
     public double Angle1 = 30;
-    public double Angle2 = -60;
-    public long holdOn = 20;
+    public double Angle2 = -66;
+    public long holdOn = 1000;
 
     @Override
     public void runOpMode() {
@@ -106,7 +107,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         sleep(2000);
 
@@ -120,26 +121,32 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.25)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.15)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-
         }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
 
 //turn left
         turn(Angle2);
 
 //go forward
-        MecDrive.drive = 0.6;
+        MecDrive.drive = 0.57;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .25)) {
+        while (opModeIsActive() && (runtime.seconds() < .70)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
 
 //lift by vision
         lift.ManualLift();
@@ -156,27 +163,31 @@ public class Red_Duck_Unit extends LinearOpMode {
             lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
+        sleep(holdOn);
+
 //go forward
         MecDrive.drive = 0.2;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .25)) {
+        while (opModeIsActive() && (runtime.seconds() < .3)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        sleep(holdOn);
 
 //drop freight
-        sleep(holdOn);
         intake.intake();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.1)) {
-            //intake.Drop = true;
             intake.intake.setPower(.65);
         }
-        //intake.stopIntake = true;
+
         intake.intake.setPower(0);
 
 //going backwards
@@ -185,13 +196,18 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
 
 //Drop Lift
-        lift.elevatorLow = true;
+        lift.ManualLift();
+        lift.Lift.setTargetPosition(lift.low);
 
 //Backup to wall
         MecDrive.drive = -0.6;
@@ -203,6 +219,10 @@ public class Red_Duck_Unit extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
 
 //strafe to unit
         MecDrive.drive = 0.0;
@@ -210,11 +230,15 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.47)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
+        MecDrive.drive = 0.0;
+        MecDrive.strafe = 0.0;
+        MecDrive.turn = 0.0;
+        MecDrive.MecanumDrive();
+        sleep(holdOn);
     }
 
 
@@ -249,6 +273,8 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.setAllPower(0);
         MecDrive.MecanumDrive();
     }
+
+
 
     // end gyro method copy
 }

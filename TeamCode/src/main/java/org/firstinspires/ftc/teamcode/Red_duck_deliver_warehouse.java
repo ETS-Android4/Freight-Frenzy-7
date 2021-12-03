@@ -76,6 +76,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name="Red_Duck_Deliver_Warehouse", group="Pushbot")
 //@Disabled
+//Copied from blue auto and has been adjusted accordingly
 public class Red_duck_deliver_warehouse extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -87,9 +88,9 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
     Intake intake = new Intake();
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
-    private double firstTurn = 40;
-    private double secondTurn = -20;
-    private double ThirdTurn = 85;
+    private double firstTurn = -40;
+    private double secondTurn = 20;
+    private double ThirdTurn = -85;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
@@ -141,7 +142,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         }
         //spinner.stopSpinner = true;
         spinner.DuckSpinner.setPower(0);
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         sleep(2000);
 
@@ -227,7 +228,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
 //drive to warehouse
 
         MecDrive.drive = .6;
-        MecDrive.strafe = -0.2;
+        MecDrive.strafe = 0.2;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();

@@ -43,6 +43,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name="Red Deliver Warehouse", group="Pushbot")
 //@Disabled
+//Copied from blue auto and has been adjusted accordingly
 public class Red_Deliver_WareHouse extends LinearOpMode {
 
 
@@ -53,8 +54,8 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
     Lift lift = new Lift();
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
-    private double firstTurn = -33;
-    private double secondTurn = 80;
+    private double firstTurn = 33;
+    private double secondTurn = -80;
     private int sleepTime = 1000;
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
@@ -92,7 +93,7 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
         telemetry.update();
 
         //lock duck arm
-        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckArm.setPosition(spinner.arm);
 
 //turn to face hub
        turn(firstTurn);
@@ -159,7 +160,7 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
 
 //drive forward
         MecDrive.drive = .6;
-        MecDrive.strafe = -0.1;
+        MecDrive.strafe = 0.2;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
