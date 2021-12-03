@@ -67,7 +67,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Blue_Auto Duck & Park", group="Pushbot")
+@Autonomous(name="Storage", group="Pushbot")
 //@Disabled
 public class Blue_Auto_Duck_and_Park extends LinearOpMode {
 
