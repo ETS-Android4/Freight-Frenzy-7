@@ -130,8 +130,8 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
         telemetry.update();
 
 
-        spinner.DuckArm.setPosition(spinner.arm);
-        spinner.DuckSpinner.setPower(.7);
+        spinner.DuckArm.setPosition(spinner.rest);
+        spinner.DuckSpinner.setPower(-0.7);
         spinner.carouselDuck();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 3.5)) {
@@ -317,6 +317,9 @@ intake.freightCatch = true;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
+
+        //open freight catch
+        intake.freightStop.setPosition(0);
 
         //Drop freight
         intake.intake();
