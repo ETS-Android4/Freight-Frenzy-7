@@ -70,6 +70,7 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
         spinner.init(hardwareMap);
 
        Vision.init(hardwareMap);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");

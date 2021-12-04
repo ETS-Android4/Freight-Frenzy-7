@@ -107,6 +107,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
         spinner.init(hardwareMap);
 
        Vision.init(hardwareMap);
+        spinner.DuckArm.setPosition(spinner.arm);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
