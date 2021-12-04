@@ -55,7 +55,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
  */
 //BackUp
 @TeleOp(name="TeleOp BackUp Mode", group="Iterative Opmode")
-//@Disabled
+@Disabled
 public class TeleOp_Iterative_backup extends OpMode
 {
     // Declare OpMode members.
