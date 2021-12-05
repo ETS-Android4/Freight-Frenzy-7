@@ -316,11 +316,10 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
 
-        //open freight catch
-        intake.freightStop.setPosition(0);
 
         //Drop freight
         intake.intake();
+        intake.freightStop.setPosition(0);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.1)) {
             //intake.Drop = true;
