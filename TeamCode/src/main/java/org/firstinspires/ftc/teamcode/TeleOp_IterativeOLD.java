@@ -32,10 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -51,9 +48,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOp Mode", group="Iterative Opmode")
-//@Disabled
-public class TeleOp_Iterative extends OpMode
+@TeleOp(name="TeleOpOLD Mode", group="Iterative Opmode")
+@Disabled
+public class TeleOp_IterativeOLD extends OpMode
 {
     // Declare OpMode members.
     DriveTrain MecDrive = new DriveTrain();
@@ -142,16 +139,9 @@ public class TeleOp_Iterative extends OpMode
         intake.freightCatch = gamepad2.x;
 
         //arm position servo
-        double armPos = gamepad2.left_stick_x;
-        if (gamepad2.left_stick_x > 0.1){
-            spinner.armOut = true;
-        }
-        else if (gamepad2.left_stick_x < -0.1){
-            spinner.armIn = true;
-        }
-        else {
-            spinner.
-        }
+        spinner.armOut = gamepad1.a; //move controls to gamepad 2 joystick
+        spinner.armIn = gamepad1.b;
+
 
         //spin ducks
         if (gamepad1.right_bumper){
