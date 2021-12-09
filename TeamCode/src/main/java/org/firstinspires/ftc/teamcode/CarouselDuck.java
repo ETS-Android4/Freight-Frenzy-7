@@ -47,7 +47,7 @@ public class CarouselDuck {
     public double spinnerPower = 1;
     public double rest = 0.0;
     public double arm = 1;
-    public double armPosition;
+    public double armPos;
 
 
     /* local OpMode members. */
@@ -93,16 +93,9 @@ public class CarouselDuck {
 
     }
 
-   /* public void DuckArmSet() {
-        armPosition = DuckArm.getPosition();
-        if (armPosition == 0) {
-            DuckArm.setPosition(arm);
+    public void DuckArmSet() {
+        if (Math.abs(armPos) > 0.1){
+            armPos = Math.ceil(armPos * 0.5);
         }
-        else if (armPosition == 1) {
-            DuckArm.setPosition(rest);
-        }
-        else {
-            DuckArm.setPosition(rest);
-        }
-    }*/
+    }
 }

@@ -142,16 +142,7 @@ public class TeleOp_Iterative extends OpMode
         intake.freightCatch = gamepad2.x;
 
         //arm position servo
-        double armPos = gamepad2.left_stick_x;
-        if (gamepad2.left_stick_x > 0.1){
-            spinner.armOut = true;
-        }
-        else if (gamepad2.left_stick_x < -0.1){
-            spinner.armIn = true;
-        }
-        else {
-            spinner.
-        }
+        spinner.armPos = gamepad2.left_stick_x;
 
         //spin ducks
         if (gamepad1.right_bumper){
@@ -177,6 +168,7 @@ public class TeleOp_Iterative extends OpMode
         intake.intake();
         spinner.carouselDuck();
         lift.ManualLift();
+        spinner.DuckArmSet();
 
 
 
