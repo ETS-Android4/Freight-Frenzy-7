@@ -87,7 +87,7 @@ public class Blue_duck_deliver_warehouse extends LinearOpMode {
     Intake intake = new Intake();
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
-    private double firstTurn = 40;
+    private double firstTurn = 41; //Changed from 40 to 41 AB
     private double secondTurn = -20;
     private double ThirdTurn = 85;
     private long sleeptime = 1000;

@@ -138,7 +138,8 @@ public class Blue_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .70)) {
+        while (opModeIsActive() && (runtime.seconds() < .60)) //Changed from .7 to .6 AB
+        {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
