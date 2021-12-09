@@ -27,7 +27,7 @@ public class Lift {
 
     public final int low = -20;
     public final int mid = -450;
-    public final int high = -1000;
+    public final int high = -750;//changed from -1000 by MandM
     private final int mult = 538;
     public final int increment = 30;
     private boolean runLift = false;
