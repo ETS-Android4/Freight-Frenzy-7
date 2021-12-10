@@ -26,8 +26,8 @@ public class Lift {
     public final double MaxPower = 0.5;
 
     public final int low = -20;
-    public final int mid = -450;
-    public final int high = -750;//changed from -1000 by MandM
+    public final int mid = -350;//changed from -450 by MandJ
+    public final int high = -850;//changed from -1000 by MandM
     private final int mult = 538;
     public final int increment = 30;
     private boolean runLift = false;

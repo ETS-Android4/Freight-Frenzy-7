@@ -53,6 +53,7 @@ public class Blue_Duck_Unit extends LinearOpMode {
     Lift lift = new Lift();
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
+    private double outPower = -0.45;
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
@@ -120,7 +121,7 @@ public class Blue_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.15)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.3)) { //changed from 1.15 by MandJ
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -165,13 +166,13 @@ public class Blue_Duck_Unit extends LinearOpMode {
 
         sleep(holdOn);
 
-//go forward
+//go forward slowly
         MecDrive.drive = 0.2;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .3)) {
+        while (opModeIsActive() && (runtime.seconds() < .6)) { //changed from .3 by MandJ
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -184,8 +185,19 @@ public class Blue_Duck_Unit extends LinearOpMode {
 //drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) { //Changed from 2.1 by MandJ
             intake.intake.setPower(.65);
+        }
+
+        intake.intake.setPower(0);
+
+        sleep(holdOn);
+
+//Outtake slowly
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
+            intake.intake.setPower(outPower);
         }
 
         intake.intake.setPower(0);
@@ -210,7 +222,7 @@ public class Blue_Duck_Unit extends LinearOpMode {
         lift.Lift.setTargetPosition(lift.low);
 
 //Backup to wall
-        MecDrive.drive = -0.6;
+        MecDrive.drive = -0.5; // changed from 0.6 by M and J
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
@@ -230,7 +242,7 @@ public class Blue_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.47)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.7)) {//Changed from 0.47 by MandJ
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
