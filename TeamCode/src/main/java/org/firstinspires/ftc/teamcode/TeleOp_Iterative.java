@@ -37,6 +37,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.Locale;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -61,6 +65,7 @@ public class TeleOp_Iterative extends OpMode
     Intake intake = new Intake();
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
+    RevColorDistanceV3 dSensor = new RevColorDistanceV3();
 
     boolean dpd2 = false;
     boolean dpu2 = false;
@@ -87,7 +92,7 @@ public class TeleOp_Iterative extends OpMode
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
-
+        dSensor.init(hardwareMap);
 
 
 
@@ -162,6 +167,8 @@ public class TeleOp_Iterative extends OpMode
         lift.elevatorMid = gamepad2.b;
         lift.elevatorHigh = gamepad2.y;
 
+
+
         //  Robot Functions
 
         MecDrive.MecanumDrive();
@@ -171,7 +178,9 @@ public class TeleOp_Iterative extends OpMode
         spinner.DuckArmSet();
 
 
-
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("Distance (cm)",
+                String.format(Locale.US, "%.02f", dSensor.yFreight));
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
