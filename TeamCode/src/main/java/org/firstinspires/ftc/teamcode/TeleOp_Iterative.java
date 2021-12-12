@@ -65,8 +65,6 @@ public class TeleOp_Iterative extends OpMode
     Intake intake = new Intake();
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
-    RevColorDistanceV3 dSensor = new RevColorDistanceV3();
-    public boolean lightOn = false;
 
     /*boolean dpd2 = false;
     boolean dpu2 = false;
@@ -176,11 +174,13 @@ public class TeleOp_Iterative extends OpMode
         spinner.carouselDuck();
         lift.ManualLift();
         spinner.DuckArmSet();
+        intake.RevColorDistanceV3();
+        intake.Blinkin();
 
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("Distance (cm)",
-                String.format(Locale.US, "%.02f", dSensor.yFreight));
+                String.format(Locale.US, "%.02f", intake.yFreight));
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());

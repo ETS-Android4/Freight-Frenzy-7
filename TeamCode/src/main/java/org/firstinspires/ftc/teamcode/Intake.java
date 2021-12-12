@@ -48,14 +48,13 @@ public class Intake {
 
         intake.setPower(0);
 
-        hwMap = ahwMap;
-
         // get a reference to the distance sensor that shares the same name.
         sensorDistance = hwMap.get(DistanceSensor.class, "ColorDistanceSensor");
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
         patternOff = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+        yFreight = sensorDistance.getDistance(DistanceUnit.CM);
     }
 //banana
     public void intake() {
@@ -77,7 +76,6 @@ public class Intake {
         if (freightCatch) {
             freightStop.setPosition(catchFreight);
         }
-        yFreight = sensorDistance.getDistance(DistanceUnit.CM);
     }
     public void RevColorDistanceV3() {
         if (yFreight < 4) {
@@ -91,8 +89,8 @@ public class Intake {
         if (lightOn) {
             blinkinLedDriver.setPattern(pattern);
         }
-    else {
-        blinkinLedDriver.setPattern(patternOff);
+        else {
+            blinkinLedDriver.setPattern(patternOff);
         }
     }
 }
