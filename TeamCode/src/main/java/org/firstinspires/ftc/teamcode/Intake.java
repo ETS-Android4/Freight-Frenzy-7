@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Intake {
 
@@ -15,8 +18,10 @@ public class Intake {
     public boolean reverse;
     public boolean freightCatch;
     public Servo freightStop;
-    //private variables
+    public DistanceSensor sensorDistance;
+    public double yFreight;
 
+    //private variables
     public final double inPower = 1;
     public final double outPower = .65;
     public final double reverseIntake = -1;
@@ -37,6 +42,12 @@ public class Intake {
         freightStop.setPosition(0);
 
         intake.setPower(0);
+
+        hwMap = ahwMap;
+
+        // get a reference to the distance sensor that shares the same name.
+        sensorDistance = hwMap.get(DistanceSensor.class, "ColorDistanceSensor");
+
     }
 //banana
     public void intake() {
@@ -58,5 +69,6 @@ public class Intake {
         if (freightCatch) {
             freightStop.setPosition(catchFreight);
         }
+        yFreight = sensorDistance.getDistance(DistanceUnit.CM);
     }
 }
