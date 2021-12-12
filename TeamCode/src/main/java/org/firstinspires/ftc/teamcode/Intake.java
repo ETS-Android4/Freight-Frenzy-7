@@ -54,7 +54,7 @@ public class Intake {
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
         patternOff = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-        yFreight = sensorDistance.getDistance(DistanceUnit.CM);
+        yFreight = sensorDistance.getDistance(DistanceUnit.CM); //moved here
     }
 //banana
     public void intake() {
