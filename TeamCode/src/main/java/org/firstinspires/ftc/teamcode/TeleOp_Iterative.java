@@ -52,10 +52,10 @@ import java.util.Locale;
  * It includes all the skeletal structure that all iterative OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Remove or comment out the @Disabled line to add this opMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOp Mode", group="Iterative Opmode")
+@TeleOp(name="TeleOp Mode", group="Iterative OpMode")
 //@Disabled
 public class TeleOp_Iterative extends OpMode
 {
@@ -66,8 +66,9 @@ public class TeleOp_Iterative extends OpMode
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
     RevColorDistanceV3 dSensor = new RevColorDistanceV3();
+    public boolean lightOn = false;
 
-    boolean dpd2 = false;
+    /*boolean dpd2 = false;
     boolean dpu2 = false;
     boolean right_bumper2 = false;
     boolean left_bumper2 = false;
@@ -75,7 +76,7 @@ public class TeleOp_Iterative extends OpMode
     boolean right_bumper1 = false;
     boolean left_bumper1 = false;
     public boolean prevA = false;
-
+*/
 
     //private double Drive = 0;
     //private double Strafe = 0;
@@ -92,7 +93,6 @@ public class TeleOp_Iterative extends OpMode
         intake.init(hardwareMap);
         lift.init(hardwareMap);
         spinner.init(hardwareMap);
-        dSensor.init(hardwareMap);
 
 
 

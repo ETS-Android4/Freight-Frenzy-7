@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -20,6 +21,10 @@ public class Intake {
     public Servo freightStop;
     public DistanceSensor sensorDistance;
     public double yFreight;
+    public RevBlinkinLedDriver blinkinLedDriver;
+    public RevBlinkinLedDriver.BlinkinPattern pattern;
+    public boolean lightOn = false;
+    public RevBlinkinLedDriver.BlinkinPattern patternOff;
 
     //private variables
     public final double inPower = 1;
@@ -48,6 +53,9 @@ public class Intake {
         // get a reference to the distance sensor that shares the same name.
         sensorDistance = hwMap.get(DistanceSensor.class, "ColorDistanceSensor");
 
+        blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        patternOff = RevBlinkinLedDriver.BlinkinPattern.BLACK;
     }
 //banana
     public void intake() {
@@ -70,5 +78,21 @@ public class Intake {
             freightStop.setPosition(catchFreight);
         }
         yFreight = sensorDistance.getDistance(DistanceUnit.CM);
+    }
+    public void RevColorDistanceV3() {
+        if (yFreight < 4) {
+            lightOn = true;
+        }
+        else {
+            lightOn = false;
+        }
+    }
+    public void Blinkin () {
+        if (lightOn) {
+            blinkinLedDriver.setPattern(pattern);
+        }
+    else {
+        blinkinLedDriver.setPattern(patternOff);
+        }
     }
 }
