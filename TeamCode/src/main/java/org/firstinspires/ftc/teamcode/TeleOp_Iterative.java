@@ -125,7 +125,7 @@ public class TeleOp_Iterative extends OpMode
 
 
         //intake toggle
-        if(gamepad2.right_bumper) {
+        if(gamepad2.right_bumper && !intake.lightOn) {
             intake.intake.setPower(intake.inPower);
         }
         //outtake toggle

@@ -52,9 +52,9 @@ public class Intake {
         sensorDistance = hwMap.get(DistanceSensor.class, "ColorDistanceSensor");
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+
         pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
         patternOff = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-        yFreight = sensorDistance.getDistance(DistanceUnit.CM); //moved here
     }
 //banana
     public void intake() {
@@ -78,6 +78,7 @@ public class Intake {
         }
     }
     public void RevColorDistanceV3() {
+        yFreight = sensorDistance.getDistance(DistanceUnit.CM);
         if (yFreight < 4) {
             lightOn = true;
         }
