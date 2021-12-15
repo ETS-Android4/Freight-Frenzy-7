@@ -75,12 +75,12 @@ public class CarouselDuck {
     }
 
     public void carouselDuck() {
-        if (armOut) {
+       /* if (armPos > 0.1) {
             DuckArm.setPosition(arm);
         }
-        if (armIn) {
+        if (armPos < 0.1) {
             DuckArm.setPosition(rest);
-        }
+        } */
         if (duckSpinner) {
             DuckSpinner.setPower(spinnerPower);
         }

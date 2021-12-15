@@ -186,6 +186,7 @@ public class TeleOp_Iterative extends OpMode
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)",MecDrive.leftFrontPower,MecDrive.rightFrontPower);
         telemetry.addData("Lift Position" , lift.liftPosition);
+        telemetry.addData("duck arm", Math.ceil(spinner.armPos * 0.5));
         telemetry.update();
         //
         /**liftPosition = Lift.getCurrentPosition();
