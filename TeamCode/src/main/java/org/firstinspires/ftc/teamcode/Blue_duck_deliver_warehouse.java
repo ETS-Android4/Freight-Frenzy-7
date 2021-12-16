@@ -93,6 +93,8 @@ public class Blue_duck_deliver_warehouse extends LinearOpMode {
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
+    private double outPower = -0.45;
+    public long holdOn = 1000;
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
@@ -205,6 +207,17 @@ public class Blue_duck_deliver_warehouse extends LinearOpMode {
             intake.intake.setPower(.65);
         }
         //intake.stopIntake = true;
+        intake.intake.setPower(0);
+
+        sleep(holdOn);
+
+//Outtake slowly
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
+            intake.intake.setPower(outPower);
+        }
+
         intake.intake.setPower(0);
 
 //going backwards

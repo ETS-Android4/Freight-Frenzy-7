@@ -57,6 +57,8 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
     private double firstTurn = 33;
     private double secondTurn = -80;
     private int sleepTime = 1000;
+    private double outPower = -0.45;
+    public long holdOn = 1000;
 
     OpenCVWebcam2 Vision = new OpenCVWebcam2();
 
@@ -139,6 +141,17 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
             intake.intake.setPower(.65);
         }
         //intake.stopIntake = true;
+        intake.intake.setPower(0);
+
+        sleep(holdOn);
+
+//Outtake slowly
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
+            intake.intake.setPower(outPower);
+        }
+
         intake.intake.setPower(0);
 
 //going backwards
