@@ -123,7 +123,8 @@ public class TeleOp_Iterative extends OpMode
         MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
         MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
-
+        //check for freight
+        intake.RevColorDistanceV3();
         //intake toggle
         if(gamepad2.right_bumper && !intake.lightOn) {
             intake.intake.setPower(intake.inPower);
@@ -174,7 +175,7 @@ public class TeleOp_Iterative extends OpMode
         spinner.carouselDuck();
         lift.ManualLift();
         spinner.DuckArmSet();
-        intake.RevColorDistanceV3();
+
         intake.Blinkin();
 
 
