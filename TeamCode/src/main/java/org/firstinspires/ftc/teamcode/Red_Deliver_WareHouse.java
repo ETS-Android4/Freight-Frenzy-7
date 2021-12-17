@@ -136,7 +136,7 @@ public class Red_Deliver_WareHouse extends LinearOpMode {
 //drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }

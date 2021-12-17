@@ -204,7 +204,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
 //drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }

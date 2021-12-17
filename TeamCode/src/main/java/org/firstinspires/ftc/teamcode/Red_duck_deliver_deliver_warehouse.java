@@ -192,7 +192,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .1)) {
+        while (opModeIsActive() && (runtime.seconds() < .25)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -204,7 +204,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
 //drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }
@@ -323,7 +323,7 @@ intake.freightCatch = true;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.15)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -337,10 +337,22 @@ intake.freightCatch = true;
         intake.intake();
         intake.freightStop.setPosition(0);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }
+
+        sleep(holdOn);
+
+        //Outtake slowly
+        intake.intake();
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
+            intake.intake.setPower(outPower);
+        }
+
+        intake.intake.setPower(0);
+
         //intake.stopIntake = true;
         intake.intake.setPower(0);
 
