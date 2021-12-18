@@ -45,8 +45,8 @@ public class CarouselDuck {
     public boolean duckSpinnerRev;
     public boolean stopSpinner;
     public double spinnerPower = 1;
-    public double rest = 0.0;
-    public double arm = 1;
+    public double rest = 0.1;
+    public double arm = 0.9;
     public double armPos = 0;
 
 
