@@ -131,7 +131,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
 
-//turn left
+//turn right
         turn(Angle2);
 
 //go forward
@@ -140,7 +140,7 @@ public class Red_Duck_Unit extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .60)) {
+        while (opModeIsActive() && (runtime.seconds() < .5)) { //changed from .6 to .5
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

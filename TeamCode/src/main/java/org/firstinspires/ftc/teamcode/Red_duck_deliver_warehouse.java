@@ -89,7 +89,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
     private double firstTurn = -40;
-    private double secondTurn = 20;
+    private double secondTurn = 22;  //changed from 20 to 22
     private double ThirdTurn = -83;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
@@ -192,7 +192,7 @@ public class Red_duck_deliver_warehouse extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .2)) {
+        while (opModeIsActive() && (runtime.seconds() < .31)) { //changed from .2 to .31
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

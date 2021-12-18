@@ -88,7 +88,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
     private double firstTurn = 40;
-    private double secondTurn = -20;
+    private double secondTurn = -22;  //changed from -20 to -22
     private double ThirdTurn = 85;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
@@ -190,7 +190,7 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .25)) {
+        while (opModeIsActive() && (runtime.seconds() < .31)) { // changed from .25 to .31
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -299,23 +299,23 @@ public class Blue_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.MecanumDrive();
 
         //turn
-        turn(-20);
+        turn(-22); //changed from -20 to -22 to match red side
 
         //lift by vision
 
         lift.ManualLift();
-        if (Vision.FinalTeamEleLoc == 0) {
-            lift.Lift.setTargetPosition(lift.low);
+        //if (Vision.FinalTeamEleLoc == 0) {
+        //    lift.Lift.setTargetPosition(lift.low);
+        //    lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //}
+        //if (Vision.FinalTeamEleLoc == 1) {
+        //    lift.Lift.setTargetPosition(lift.mid);
+        //    lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //}
+        //if (Vision.FinalTeamEleLoc == 2) {
+            lift.Lift.setTargetPosition(lift.high);  //set always to high for second delivery
             lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 1) {
-            lift.Lift.setTargetPosition(lift.mid);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 2) {
-            lift.Lift.setTargetPosition(lift.high);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        //}
 
         //drive forward
         MecDrive.drive = 0.4;

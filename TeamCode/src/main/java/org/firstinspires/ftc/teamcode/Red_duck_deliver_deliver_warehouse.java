@@ -89,7 +89,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
     CarouselDuck spinner = new CarouselDuck();
     Lift lift = new Lift();
     private double firstTurn = -40;
-    private double secondTurn = 20;
+    private double secondTurn = 22; //changed from 20 to 22 based on 12/17 video
     private double ThirdTurn = -85;
     private long sleeptime = 1000;
     private Orientation lastAngles = new Orientation();
@@ -192,7 +192,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < .25)) {
+        while (opModeIsActive() && (runtime.seconds() < .31)) { //changed from .25 to .31
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -204,7 +204,7 @@ public class Red_duck_deliver_deliver_warehouse extends LinearOpMode {
 //drop freight
         intake.intake();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.2)) { // changed 1.5 to 1.2
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }
@@ -289,7 +289,7 @@ intake.freightCatch = true;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.95)) {
+        while (opModeIsActive() && (runtime.seconds() < .98)) { //changed from .95 to .98
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -299,23 +299,23 @@ intake.freightCatch = true;
         MecDrive.MecanumDrive();
 
         //turn
-        turn(20);
+        turn(22);  //this should be FourthTurn, changed from 20 to 22
 
         //lift by vision
 
         lift.ManualLift();
-        if (Vision.FinalTeamEleLoc == 0) {
-            lift.Lift.setTargetPosition(lift.low);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 1) {
-            lift.Lift.setTargetPosition(lift.mid);
-            lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (Vision.FinalTeamEleLoc == 2) {
+        //if (Vision.FinalTeamEleLoc == 0) {
+        //    lift.Lift.setTargetPosition(lift.low);
+        //    lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //}
+        //if (Vision.FinalTeamEleLoc == 1) {
+        //    lift.Lift.setTargetPosition(lift.mid);
+        //    lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //}
+        //if (Vision.FinalTeamEleLoc == 2) {
             lift.Lift.setTargetPosition(lift.high);
             lift.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        //}
 
         //drive forward
         MecDrive.drive = 0.4;
@@ -323,7 +323,7 @@ intake.freightCatch = true;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.15)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.05)) { //changed from 1.15 to 1.05
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -332,12 +332,11 @@ intake.freightCatch = true;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
 
-
         //Drop freight
         intake.intake();
         intake.freightStop.setPosition(0);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.2)) { //changed from 1.5 to 1.2
             //intake.Drop = true;
             intake.intake.setPower(.65);
         }
@@ -357,7 +356,7 @@ intake.freightCatch = true;
         intake.intake.setPower(0);
 
         //turn
-        turn(-67);
+        turn(-67.5);  //changed from -67 to -67.5
 
         //Lower lift
         lift.Lift.setTargetPosition(lift.low);
