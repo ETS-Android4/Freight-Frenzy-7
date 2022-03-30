@@ -87,7 +87,7 @@ public class Auto_Just_Park extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-
+        lift.init();
         MecDrive.drive = 0.5;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
