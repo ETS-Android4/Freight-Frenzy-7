@@ -27,16 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
-
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
+package org.firstinspires.ftc.teamcode.Mechanical;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -45,49 +41,29 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-import java.util.Arrays;
-
 /**
  * This is NOT an opmode.
  *
- * This class can be used to define all the specific hardware for a single robot.
- * In this case that robot is a Pushbot.
- * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
+ * This class is used to define all functions of the robot drivetrain
+ * Control wheel power based on Drive, Strafe and Turn inputs
  *
  */
 public class DriveTrain
 {
     /* Public OpMode members. */
-    public DcMotor LFDrive = null;
-    public DcMotor RFDrive = null;
-    public DcMotor LBDrive = null;
-    public DcMotor RBDrive = null;
+    public DcMotorEx LFDrive = null;
+    public DcMotorEx RFDrive = null;
+    public DcMotorEx LBDrive = null;
+    public DcMotorEx RBDrive = null;
     public double leftFrontPower = 0;
     public double rightFrontPower = 0;
     public double leftBackPower = 0;
     public double rightBackPower = 0;
-    public double LFSpeed;
-    public double RFSpeed;
-    public double LBSpeed;
-    public double RBSpeed;
-    public int LFPosition [];
-    public int RFPosition [];
-    public int LBPosition [];
-    public int RBPosition [];
     public double drive = 0;
     public double strafe = 0;
     public double turn = 0;
     public Orientation lastAngles = new Orientation();
     public double currAngle = 0.0;
-
-    private int LFMove;
-    private int RFMove;
-    private int LBMove;
-    private int RBMove;
-    private final double kDrive = 1;
-    private final double kStrafe = 1;
-    private final double kTurn = 1;
-
 
 
     BNO055IMU imu;
@@ -105,28 +81,20 @@ public class DriveTrain
 
     /* Initialize Hardware interfaces */
 
-
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        LFDrive  = ahwMap.get(DcMotor.class, "LFDrive");
-        RFDrive = ahwMap.get(DcMotor.class, "RFDrive");
-        LBDrive  = ahwMap.get(DcMotor.class, "LBDrive");
-        RBDrive = ahwMap.get(DcMotor.class, "RBDrive");
+        LFDrive  = ahwMap.get(DcMotorEx.class, "LFDrive");
+        RFDrive = ahwMap.get(DcMotorEx.class, "RFDrive");
+        LBDrive  = ahwMap.get(DcMotorEx.class, "LBDrive");
+        RBDrive = ahwMap.get(DcMotorEx.class, "RBDrive");
 
-        LFDrive.setDirection(DcMotor.Direction.REVERSE);
-        RFDrive.setDirection(DcMotor.Direction.FORWARD);
-        LBDrive.setDirection(DcMotor.Direction.REVERSE);
-        RBDrive.setDirection(DcMotor.Direction.FORWARD);
-
-        LFPosition [4] = LFDrive.getCurrentPosition();
-        RFPosition [4] = RFDrive.getCurrentPosition();
-        LBPosition [4] = LBDrive.getCurrentPosition();
-        RBPosition [4] = RBDrive.getCurrentPosition();
-
-       //  This can be used to shift the array one to the left:  Arrays.stream(LFPosition).skip(1);
+        LFDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        RFDrive.setDirection(DcMotorEx.Direction.FORWARD);
+        LBDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        RBDrive.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Set all motors to zero power
         LFDrive.setPower(0);
@@ -144,46 +112,6 @@ public class DriveTrain
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-
-    }
-
-    //Update motor position
-    @RequiresApi(api = Build.VERSION_CODES.N) // required for array shift code
-    public void updateRobotPosition(){
-        Arrays.stream(LFPosition).skip(1);
-        Arrays.stream(RFPosition).skip(1);
-        Arrays.stream(LBPosition).skip(1);
-        Arrays.stream(RBPosition).skip(1);
-
-        LFPosition [4] = LFDrive.getCurrentPosition();
-        RFPosition [4] = RFDrive.getCurrentPosition();
-        LBPosition [4] = LBDrive.getCurrentPosition();
-        RBPosition [4] = RBDrive.getCurrentPosition();
-
-        LFMove = LFPosition [4] - LFPosition [3];
-        RFMove = RFPosition [4] - RFPosition [3];
-        LBMove = LBPosition [4] - LBPosition [3];
-        RBMove = RBPosition [4] - RBPosition [3];
-
-        double Drive = kDrive * (LFMove + RFMove + LBMove + RBMove);
-        double Strafe = kStrafe * (LBMove + RFMove - LFMove - RBMove);
-        double Turn = kTurn * (LFMove + LBMove - RFMove - RBMove);
-
-        double RobotMove [] = new double[0];
-        RobotMove [0] = Drive * Math.sin(currAngle)+Strafe * Math.cos(currAngle);
-        RobotMove [1] = Drive * Math.cos(currAngle)+Strafe * Math.sin(currAngle);
-        RobotMove [2] = Turn;
-        double RobotPosition [] = {0, 0, 0}; // X, Y, Angle
-
-        RobotPosition [0]= RobotPosition [0] + RobotMove[0];
-        RobotPosition [1]= RobotPosition [1] + RobotMove[1];
-        RobotPosition [2]= currAngle;
-
-        /* Alternate code
-        for  (int i = 0; i < 2; i++){
-            RobotPosition[i] = RobotPosition[i] + RobotMove[i];
-        }
-        */
 
     }
 
